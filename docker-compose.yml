@@ -1,26 +1,29 @@
 version: '3'
 services:
   web:
+    container_name: web
     build: .
     links:
       - database:db
     volumes:
       - .:/var/www
+    environment:
+      - GITHUB_KEY
+      - GITLAB_KEY
     ports:
       - "80:80"
       - "443:443"
       - "8000:8000"
       - "3000:3000"
-    extra_hosts:
-      - "ant.loc:127.0.0.1"
-#    command: npm start
   database:
+    container_name: database
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     links:
       - database:db
