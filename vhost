@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+	ServerName localhost
+	ServerAdmin martin@brychta.name
+	DocumentRoot /var/www
+	<Directory /var/www>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Require all granted
+	</Directory>
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+		Require all denied
+	</Directory>
+</VirtualHost>
