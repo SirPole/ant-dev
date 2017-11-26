@@ -2,30 +2,6 @@ FROM php:7.1.11-apache-jessie
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
-# Apache virtual host configuration
-ARG VHOST="  \
-<VirtualHost *:80> \
-    ServerName localhost \
-    ServerAlias ant.loc \
-    ServerAdmin martin@brychta.name \
-    DocumentRoot /var/www \
-    <Directory /var/www> \
-        Options Indexes FollowSymLinks MultiViews \
-        AllowOverride All \
-        Require all granted \
-    </Directory> \
-</VirtualHost> \
-"
-
-# Extra php settings
-ARG PHP_INI=" \
-file_uploads = On \
-memory_limit = 512M \
-upload_max_filesize = 2048M \
-post_max_size = 2048M \
-max_execution_time = 600 \
-"
-
 # Install dependencies
 RUN apt-get update && apt-get install -yqq \
 		git \
@@ -54,13 +30,35 @@ RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get install -y nodejs
 
-# Virtual host configuration
-RUN echo ${VHOST} > /etc/apache2/sites-available/000-default.conf
-
-# Extra php settings
-RUN echo ${PHP_INI} > /usr/local/etc/php/conf.d/extra.ini
-
 # Enable mod_rewrite
 RUN a2enmod rewrite
+
+# Apache virtual host configuration
+ARG VHOST="\
+<VirtualHost *:80>\n\
+	ServerName localhost\n\
+	ServerAlias ant.loc\n\
+	ServerAdmin martin@brychta.name\n\
+	DocumentRoot /var/www\n\
+	<Directory /var/www>\n\
+		Options Indexes FollowSymLinks MultiViews\n\
+		AllowOverride All\n\
+		Require all granted\n\
+	</Directory>\n\
+</VirtualHost>\n"
+
+# Extra php settings
+ARG PHP_INI="\
+file_uploads = On\n\
+memory_limit = 512M\n\
+upload_max_filesize = 2048M\n\
+post_max_size = 2048M\n\
+max_execution_time = 600\n"
+
+# Virtual host configuration
+RUN echo "${VHOST}" > /etc/apache2/sites-available/000-default.conf
+
+# Extra php settings
+RUN echo "${PHP_INI}" > /usr/local/etc/php/conf.d/extra.ini
 
 WORKDIR /var/www
