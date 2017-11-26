@@ -29,6 +29,12 @@ Run containers with `docker-compose up`, stop it with Ctrl+C
 ### Interactive
 Run containers with `docker-compose up -d && docker-compose exec web /bin/bash`. You'll be presented with interactive bash session. Stop containers using `docker-compose down`
 
+# Nice to have
+Create aliases for your commands, for example:
+ 
+ - `alias dockup='docker-compose up -d && docker-compose exec web /bin/bash'`
+ - `alias dockdown='docker-compose down'`
+
 # Official docs
 - [Docker installation](https://docs.docker.com/engine/installation/)
 - [Docker-compose installation](https://docs.docker.com/compose/install/)
