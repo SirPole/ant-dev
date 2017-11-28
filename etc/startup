@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+exec compose config --global github-oauth.github.com ${GITHUB_KEY}
+exec compose config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
+
+if [ -f /var/www/log/apache.error.log ]; then
+	exec rm /var/www/log/apache.error.log
+fi
+
+if [ -f /var/www/log/apache.access.log ]; then
+	exec rm /var/www/log/apache.access.log
+fi
+
+exec apache2-foreground &
+
+if [ -f /var/www/package.json ]; then
+	exec npm start
+fi

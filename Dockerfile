@@ -44,4 +44,9 @@ COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 
+# Startup script
+COPY etc/startup /usr/local/startup
+
 WORKDIR /var/www
+
+CMD ["startup"]
