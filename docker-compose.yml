@@ -10,7 +10,9 @@ services:
     environment:
       - GITHUB_KEY
       - GITLAB_KEY
+      - SSH_KEY
     ports:
+      - "22:22"
       - "80:80"
       - "443:443"
       - "8000:8000"

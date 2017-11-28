@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -yqq \
 		git \
 		tar \
 		g++ \
+		ssh \
 		bzip2 \
 		zlib1g-dev \
 		libmcrypt-dev \
@@ -43,6 +44,12 @@ COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
+
+# Configure SSH server
+RUN echo "\nAuthorizedKeysFile %h/.ssh/authorized_keys" >> /etc/ssh/sshd_config
+RUN echo "\nPasswordAuthentication no" >> /etc/ssh/sshd_config
+RUN chmod 755 ~/.ssh
+RUN chmod 600 ~/.ssh/authorized_keys
 
 # Startup script
 COPY etc/startup /usr/local/startup
