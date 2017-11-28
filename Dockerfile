@@ -21,7 +21,9 @@ RUN docker-php-ext-install -j$(nproc) mbstring \
     	&& docker-php-ext-install -j$(nproc) mcrypt \
     	&& docker-php-ext-install -j$(nproc) soap \
     	&& docker-php-ext-install -j$(nproc) gd \
-    	&& docker-php-ext-install -j$(nproc) intl
+    	&& docker-php-ext-install -j$(nproc) intl \
+    	&& docker-php-ext-install -j$(nproc) pdo \
+    	&& docker-php-ext-install -j$(nproc) pdo_mysql
 
 # Install Composer
 RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -31,7 +33,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get install -y nodejs
 
 # Enable mod_rewrite
-RUN a2enmod rewrite
+RUN a2enmod rewrite headers
 
 # Install global npm packages
 RUN npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr ncu babel-eslint casperjs node-sass
