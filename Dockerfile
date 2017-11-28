@@ -33,6 +33,9 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 # Enable mod_rewrite
 RUN a2enmod rewrite
 
+# Install global npm packages
+RUN npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr ncu babel-eslint casperjs node-sass
+
 # Apache virtual host configuration
 ARG VHOST="\
 <VirtualHost *:80>\n\
