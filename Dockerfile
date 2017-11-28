@@ -39,31 +39,9 @@ RUN a2enmod rewrite headers
 RUN npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr ncu babel-eslint casperjs node-sass
 
 # Apache virtual host configuration
-ARG VHOST="\
-<VirtualHost *:80>\n\
-	ServerName localhost\n\
-	ServerAlias ant.loc\n\
-	ServerAdmin martin@brychta.name\n\
-	DocumentRoot /var/www\n\
-	<Directory /var/www>\n\
-		Options Indexes FollowSymLinks MultiViews\n\
-		AllowOverride All\n\
-		Require all granted\n\
-	</Directory>\n\
-</VirtualHost>\n"
+COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 
 # Extra php settings
-ARG PHP_INI="\
-file_uploads = On\n\
-memory_limit = 512M\n\
-upload_max_filesize = 2048M\n\
-post_max_size = 2048M\n\
-max_execution_time = 600\n"
-
-# Virtual host configuration
-RUN echo "${VHOST}" > /etc/apache2/sites-available/000-default.conf
-
-# Extra php settings
-RUN echo "${PHP_INI}" > /usr/local/etc/php/conf.d/extra.ini
+COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 
 WORKDIR /var/www
