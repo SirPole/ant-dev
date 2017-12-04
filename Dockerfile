@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -yqq \
 		tar \
 		g++ \
 		ssh \
+		openssh-server \
 		bzip2 \
 		zlib1g-dev \
 		libmcrypt-dev \
@@ -37,7 +38,9 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 RUN a2enmod rewrite headers
 
 # Install global npm packages
-RUN npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr ncu babel-eslint casperjs node-sass
+RUN npm config set user 0 \
+	&& npm config set unsafe-perm true \
+	&& npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr ncu babel-eslint casperjs node-sass
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
@@ -45,15 +48,10 @@ COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 
-# Configure SSH server
-RUN echo "\nAuthorizedKeysFile %h/.ssh/authorized_keys" >> /etc/ssh/sshd_config
-RUN echo "\nPasswordAuthentication no" >> /etc/ssh/sshd_config
-RUN chmod 755 ~/.ssh
-RUN chmod 600 ~/.ssh/authorized_keys
-
 # Startup script
-COPY etc/startup /usr/local/startup
+COPY etc/startup /usr/local/bin/startup
 
 WORKDIR /var/www
 
-CMD ["startup"]
+ENTRYPOINT ["startup"]
+CMD [""]

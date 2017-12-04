@@ -16,8 +16,8 @@ fi
 
 exec service ssh start
 
-exec apache2-foreground &
+exec apache2-foreground
 
-if [ -f /var/www/package.json ]; then
-	exec npm start
-fi
+#if [ -f /var/www/package.json ]; then
+#	exec npm start
+#fi
