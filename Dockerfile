@@ -7,8 +7,6 @@ RUN apt-get update && apt-get install -yqq \
 		git \
 		tar \
 		g++ \
-		ssh \
-		openssh-server \
 		bzip2 \
 		zlib1g-dev \
 		libmcrypt-dev \
@@ -49,9 +47,9 @@ COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 
 # Startup script
-COPY etc/startup /usr/local/bin/startup
+COPY etc/startup /usr/local/bin/
 
 WORKDIR /var/www
 
-ENTRYPOINT ["startup"]
-CMD [""]
+ENTRYPOINT ["/bin/bash"]
+CMD ["startup"]

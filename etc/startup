@@ -2,22 +2,25 @@
 
 set -e
 
-exec composer config --global github-oauth.github.com ${GITHUB_KEY}
-exec composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
-exec echo "${SSH_KEY}" > ~/.ssh/authorized_keys
+composer config --global github-oauth.github.com ${GITHUB_KEY}
+composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
 
 if [ -f /var/www/log/apache.error.log ]; then
-	exec rm -f /var/www/log/apache.error.log
+	rm -f /var/www/log/apache.error.log
 fi
 
 if [ -f /var/www/log/apache.access.log ]; then
-	exec rm -f /var/www/log/apache.access.log
+	rm -f /var/www/log/apache.access.log
 fi
 
-exec service ssh start
+apache2ctl start
+
+if [ -f /var/www/package.json ]; then
+	npm start
+fi
+
+apache2ctl stop
+
+rm -rf /var/www/temp/cache/
 
 exec apache2-foreground
-
-#if [ -f /var/www/package.json ]; then
-#	exec npm start
-#fi
