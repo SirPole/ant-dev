@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     container_name: web
-    image: sirpole/ant-dev:7.1
+    image: sirpole/ant-dev
     links:
       - database:db
     volumes:

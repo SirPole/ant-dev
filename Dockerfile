@@ -51,5 +51,5 @@ COPY etc/startup /usr/local/bin/
 
 WORKDIR /var/www
 
-ENTRYPOINT ["/bin/bash"]
-CMD ["startup"]
+ENTRYPOINT ["/usr/local/bin/startup"]
+CMD [""]
