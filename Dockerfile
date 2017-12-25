@@ -1,4 +1,4 @@
-FROM php:apache-stretchs
+FROM php:apache-stretch
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
