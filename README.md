@@ -2,7 +2,7 @@
 
 Docker environment for running antcms
 
-Already comes with preinstalled [Apache 2.4](https://httpd.apache.org/), [php 7.1](https://secure.php.net/), [MariaDB](https://mariadb.org/), [phpMyAdmin](https://www.phpmyadmin.net/), [Composer](https://getcomposer.org/) and [Node.js](https://nodejs.org/) with [npm](https://npmjs.com/).
+Already comes with preinstalled [Apache](https://httpd.apache.org/), [php](https://secure.php.net/), [MariaDB](https://mariadb.org/), [phpMyAdmin](https://www.phpmyadmin.net/), [Composer](https://getcomposer.org/) and [Node.js](https://nodejs.org/) with [npm](https://npmjs.com/).
 
 # Disclaimer
 
