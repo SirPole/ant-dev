@@ -49,6 +49,8 @@ COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 # Startup script
 COPY etc/startup /usr/local/bin/
 
+RUN chmod +x /usr/local/bin/startup
+
 WORKDIR /var/www
 
 ENTRYPOINT ["/usr/local/bin/startup"]

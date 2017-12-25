@@ -2,25 +2,20 @@
 
 set -e
 
-useradd -S /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
-export HOME=/home/ant
+useradd -s /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
 chown ant /var/www
 
 composer config --global github-oauth.github.com ${GITHUB_KEY}
 composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
 
-if [ -f /var/www/log/apache.error.log ]; then
-	rm -f /var/www/log/apache.error.log
-fi
-
-if [ -f /var/www/log/apache.access.log ]; then
-	rm -f /var/www/log/apache.access.log
-fi
+su ant -c "mkdir /var/www/log && touch /var/www/log/apache.access.log && touch /var/www/log/apache.error.log"
+echo "" > /var/www/log/apache.access.log
+echo "" > /var/www/log/apache.error.log
 
 apache2ctl start
 
 if [ -f /var/www/package.json ]; then
-	su ant -c "npm start" || exit 0
+	su ant -c "npm start"
 fi
 
 apache2ctl stop
