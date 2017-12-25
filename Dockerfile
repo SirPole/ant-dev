@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -yqq \
 		zlib1g-dev \
 		libmcrypt-dev \
 		libxml2-dev \
-		libpng12-dev \
+		libpng-dev \
 		libfontconfig \
 		libicu-dev
 
