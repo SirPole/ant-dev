@@ -2,6 +2,10 @@
 
 set -e
 
+useradd -S /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
+export HOME=/home/ant
+chown ant /var/www
+
 composer config --global github-oauth.github.com ${GITHUB_KEY}
 composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
 
@@ -16,11 +20,9 @@ fi
 apache2ctl start
 
 if [ -f /var/www/package.json ]; then
-	npm start
+	su ant -c "npm start" || exit 0
 fi
 
 apache2ctl stop
-
-rm -rf /var/www/temp/cache/
 
 exec apache2-foreground
