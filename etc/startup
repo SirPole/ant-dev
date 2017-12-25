@@ -8,7 +8,7 @@ chown ant /var/www
 composer config --global github-oauth.github.com ${GITHUB_KEY}
 composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
 
-su ant -c "mkdir /var/www/log && touch /var/www/log/apache.access.log && touch /var/www/log/apache.error.log"
+su ant -c "mkdir -p /var/www/log && touch /var/www/log/apache.access.log && touch /var/www/log/apache.error.log"
 echo "" > /var/www/log/apache.access.log
 echo "" > /var/www/log/apache.error.log
 
