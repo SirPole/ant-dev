@@ -1,4 +1,4 @@
-FROM php:7.1.11-apache-jessie
+FROM php:apache-stretchs
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
