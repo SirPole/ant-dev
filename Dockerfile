@@ -38,7 +38,7 @@ RUN a2enmod rewrite headers
 # Install global npm packages
 RUN npm config set user 0 \
 	&& npm config set unsafe-perm true \
-	&& npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr ncu babel-eslint casperjs node-sass
+	&& npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr npm-check-updates babel-eslint casperjs node-sass sass-lint
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
