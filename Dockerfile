@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -yqq \
         tar \
         g++ \
         bzip2 \
+        gnupg \
         zlib1g-dev \
         libxml2-dev \
         libpng-dev \
