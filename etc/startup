@@ -15,7 +15,7 @@ echo "" > /var/www/log/apache.error.log
 apache2ctl start
 
 if [ -f /var/www/package.json ]; then
-	su ant -c "npm start"
+    su ant -c "npm start"
 fi
 
 apache2ctl stop
