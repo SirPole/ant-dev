@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -yqq \
 		g++ \
 		bzip2 \
 		zlib1g-dev \
-		libmcrypt-dev \
 		libxml2-dev \
 		libpng-dev \
 		libfontconfig \
@@ -18,7 +17,6 @@ RUN apt-get update && apt-get install -yqq \
 # Enable required php extensions
 RUN docker-php-ext-install -j$(nproc) mbstring \
     	&& docker-php-ext-install -j$(nproc) zip \
-    	&& docker-php-ext-install -j$(nproc) mcrypt \
     	&& docker-php-ext-install -j$(nproc) soap \
     	&& docker-php-ext-install -j$(nproc) gd \
     	&& docker-php-ext-install -j$(nproc) intl \
@@ -38,7 +36,7 @@ RUN a2enmod rewrite headers
 # Install global npm packages
 RUN npm config set user 0 \
 	&& npm config set unsafe-perm true \
-	&& npm i -g phantomjs-prebuilt eslint babel-cli depcheck webpack-bundle-analyzer tldr npm-check-updates babel-eslint casperjs node-sass sass-lint
+    && npm i -g phantomjs-prebuilt webpack-bundle-analyzer tldr npm-check-updates node-sass sass-lint
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
