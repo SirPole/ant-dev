@@ -2,7 +2,7 @@ version: "3.4"
 services:
   web:
     container_name: web
-    image: sirpole/ant-dev
+    image: sirpole/ant-dev:7.1
     volumes:
       - .:/var/www
       - ~/.ssh:/.ant/ssh-host
