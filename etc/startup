@@ -5,19 +5,19 @@ set -e
 useradd -s /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
 chown ant /var/www
 
-composer config --global github-oauth.github.com ${GITHUB_KEY}
-composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}
+su ant -c "composer config --global github-oauth.github.com ${GITHUB_KEY}"
+su ant -c "composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}"
 
 su ant -c "mkdir -p /var/www/log && touch /var/www/log/apache.access.log && touch /var/www/log/apache.error.log"
 echo "" > /var/www/log/apache.access.log
 echo "" > /var/www/log/apache.error.log
 
-apache2ctl start
+#apache2ctl start
 
-if [ -f /var/www/package.json ]; then
-    su ant -c "npm start"
-fi
+#if [ -f /var/www/package.json ]; then
+#    su ant -c "npm start"
+#fi
 
-apache2ctl stop
+#apache2ctl stop
 
 exec apache2-foreground
