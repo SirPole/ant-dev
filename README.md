@@ -41,7 +41,7 @@ Install docker and docker-compose according to official docs.
 Run containers with `docker-compose up` command in directory, which contains docker-compose.yml, stop it as usual with Ctrl+C
 
 ### Interactive
-Run containers with `docker-compose up -d && docker-compose exec web /bin/bash`. You'll be presented with interactive bash session.
+Run containers with `docker-compose up -d && docker-compose exec -u ant web /bin/bash`. You'll be presented with interactive bash session.
 
 **Windows**: Use `//bin/bash` in the interactive command!
 
@@ -74,12 +74,28 @@ phpMyAdmin is reachable at it's own port, you can find it at [http://localhost:8
 
 # Nice to have
 
-Create aliases for your commands, for example:
- 
- - `alias dockup='docker-compose up -d && docker-compose exec web /bin/bash'`
- - `alias dockdown='docker-compose down'`
- 
-Create hosts entry for yourself, so you won't have to use localhost, use `ant.loc` or `anything.loc` for example. Your urls would be much more user friendly.
+- Copy command interpreters from this repo to your path. They will allow you to run familiar commands from your bash inside the docker container.
+
+    - For linux, use `usr/local/bin` directory.
+    - For windows, either put them in any directory in your PATH, or create your own and [add that to PATH](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/).
+    
+    &nbsp;
+    
+    - **dockup** - Starts containers and presents you with interactive shell.
+    - **dockdown** - Stops and removes containers.
+    
+    &nbsp;
+    
+    - **composer** - Starts composer in container.
+    - **node** - Starts node.js in container.
+    - **npm** - Starts npm in container.
+    - **php** - Starts php in container.
+    - **ncu** - [npm-check-updates](https://www.npmjs.com/package/npm-check-updates) looks up updates for packages defined in package.json.
+    - **sass-lint** - [sass-lint](https://www.npmjs.com/package/sass-lint) Useful for linting sass/scss [inside phpstorm](https://plugins.jetbrains.com/plugin/8171-sass-lint)
+    - **tldr** - [tldr](http://tldr.sh/) Simplified man pages for commands you don't remember.
+    - **wba** - [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) Visualizes built static resources. Helps to find bottlenecks and duplicates.
+
+- Create hosts entry for yourself, so you won't have to use localhost, use `ant.loc` or `anything.loc` for example. Your urls would be much more user friendly.
 
 # Useful links
 
