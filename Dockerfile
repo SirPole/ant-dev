@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -yqq \
     git \
     tar \
     g++ \
+    vim \
     bzip2 \
     gnupg \
     zlib1g-dev \
