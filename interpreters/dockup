@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+docker-compose up -d
+
+if [ $(whoami) == root ]; then
+    exec docker-compose exec web /bin/bash
+fi
+
+exec docker-compose exec -u ant web /bin/bash
