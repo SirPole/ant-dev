@@ -640,6 +640,9 @@ function __setprompt
 		PS1=""
 	fi
 
+	# Docker notify
+	PS1+="\[${DARKGRAY}\](\[${RED}\]Docker\[${DARKGRAY}\])-"
+
 	# Date
 	PS1+="\[${DARKGRAY}\](\[${CYAN}\]\$(date +%a) $(date +%b-'%-m')" # Date
 	PS1+="${BLUE} $(date +'%-I':%M:%S%P)\[${DARKGRAY}\])-" # Time
