@@ -4,25 +4,25 @@ MAINTAINER Martin Brychta <martin@brychta.name>
 
 # Install dependencies
 RUN apt-get update && apt-get install -yqq \
-        git \
-        tar \
-        g++ \
-        bzip2 \
-        gnupg \
-        zlib1g-dev \
-        libxml2-dev \
-        libpng-dev \
-        libfontconfig \
-        libicu-dev
+    git \
+    tar \
+    g++ \
+    bzip2 \
+    gnupg \
+    zlib1g-dev \
+    libxml2-dev \
+    libpng-dev \
+    libfontconfig \
+    libicu-dev
 
 # Enable required php extensions
 RUN docker-php-ext-install -j$(nproc) mbstring \
-        && docker-php-ext-install -j$(nproc) zip \
-        && docker-php-ext-install -j$(nproc) soap \
-        && docker-php-ext-install -j$(nproc) gd \
-        && docker-php-ext-install -j$(nproc) intl \
-        && docker-php-ext-install -j$(nproc) pdo \
-        && docker-php-ext-install -j$(nproc) pdo_mysql
+    && docker-php-ext-install -j$(nproc) zip \
+    && docker-php-ext-install -j$(nproc) soap \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) intl \
+    && docker-php-ext-install -j$(nproc) pdo \
+    && docker-php-ext-install -j$(nproc) pdo_mysql
 
 # Install Composer
 RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
