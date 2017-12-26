@@ -53,6 +53,9 @@ COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 
+# Custom bashrc
+COPY etc/.bashrc /etc/bash.bashrc
+
 # Startup script
 COPY etc/startup /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup

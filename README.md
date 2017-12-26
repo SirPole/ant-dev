@@ -4,6 +4,8 @@ Docker environment for running antcms
 
 Already comes with preinstalled [Apache](https://httpd.apache.org/), [php](https://secure.php.net/), [MariaDB](https://mariadb.org/), [phpMyAdmin](https://www.phpmyadmin.net/), [Composer](https://getcomposer.org/) and [Node.js](https://nodejs.org/) with [npm](https://npmjs.com/).
 
+Uses [.bashrc](https://www.linuxquestions.org/questions/linux-general-1/ultimate-prompt-and-bashrc-file-4175518169/) created by jeffguy77, thanks!
+
 # Disclaimer
 
 This repository and docker image are used solely for local development at my company with specific use case. We use our own gitlab implementation for private repositories and private packages, therefore there is a need for generated gitlab access token. We also pull a lot of packages from github from one IP, so we quickly hit the access limit. That's why the github key needs to be set as well.
