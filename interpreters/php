@@ -2,4 +2,8 @@
 
 set -e
 
-exec docker-compose exec web php "$@"
+if [ $(whoami) == root ]; then
+    exec docker-compose exec web php "$@"
+fi
+
+exec docker-compose exec -u ant web php "$@"

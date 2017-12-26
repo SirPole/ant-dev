@@ -2,4 +2,8 @@
 
 set -e
 
-exec docker-compose exec web sass-lint "$@"
+if [ $(whoami) == root ]; then
+    exec docker-compose exec web sass-lint "$@"
+fi
+
+exec docker-compose exec -u ant web sass-lint "$@"

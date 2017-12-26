@@ -2,4 +2,8 @@
 
 set -e
 
-exec docker-compose exec web tldr "$@"
+if [ $(whoami) == root ]; then
+    exec docker-compose exec web tldr "$@"
+fi
+
+exec docker-compose exec -u ant web tldr "$@"

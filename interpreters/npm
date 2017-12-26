@@ -2,4 +2,8 @@
 
 set -e
 
-exec docker-compose exec web npm "$@"
+if [ $(whoami) == root ]; then
+    exec docker-compose exec web npm "$@"
+fi
+
+exec docker-compose exec -u ant web npm "$@"
