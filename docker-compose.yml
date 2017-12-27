@@ -10,6 +10,9 @@ services:
     environment:
       - GITHUB_KEY
       - GITLAB_KEY
+      - APACHE_RUN_USER=ant
+      - APACHE_RUN_GROUP=ant
+      - NETTE_DEBUG=1
     ports:
       - "80:80"
       - "443:443"
@@ -18,8 +21,9 @@ services:
   database:
     container_name: database
     image: mariadb
+    command: --sql_mode=""
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      - MYSQL_ROOT_PASSWORD=root
     ports:
       - "3306:3306"
     volumes:
@@ -32,5 +36,4 @@ services:
     ports:
       - "8080:80"
     environment:
-      MYSQL_USERNAME: root
-      MYSQL_ROOT_PASSWORD: root
+      - MYSQL_ROOT_PASSWORD=root
