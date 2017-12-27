@@ -14,19 +14,19 @@ RUN apt-get update && apt-get install -yqq \
     libicu-dev \
     libpng-dev \
     libxml2-dev \
+    libjpeg-dev \
     libfontconfig \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
+    libfreetype6-dev
 
 # Enable required php extensions
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install -j$(nproc) \
-    mbstring \
-    zip \
-    soap \
     gd \
-    intl \
     pdo \
+    zip \
+    intl \
+    soap \
+    mbstring \
     pdo_mysql
 
 # Install Composer
