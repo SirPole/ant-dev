@@ -11,19 +11,23 @@ RUN apt-get update && apt-get install -yqq \
     bzip2 \
     gnupg \
     zlib1g-dev \
-    libxml2-dev \
+    libicu-dev \
     libpng-dev \
+    libxml2-dev \
     libfontconfig \
-    libicu-dev
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
 
 # Enable required php extensions
-RUN docker-php-ext-install -j$(nproc) mbstring \
-    && docker-php-ext-install -j$(nproc) zip \
-    && docker-php-ext-install -j$(nproc) soap \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-install -j$(nproc) pdo \
-    && docker-php-ext-install -j$(nproc) pdo_mysql
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-install -j$(nproc) \
+    mbstring \
+    zip \
+    soap \
+    gd \
+    intl \
+    pdo \
+    pdo_mysql
 
 # Install Composer
 RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
