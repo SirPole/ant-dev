@@ -2,22 +2,30 @@
 
 set -e
 
-useradd -s /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
-chown ant /var/www
+USER=root
+if [[ $(stat -c "%u" /var/www) != 0 ]]; then
+	useradd -s /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
+	chown ant /var/www
+	USER=ant
+fi
 
-su ant -c "composer config --global github-oauth.github.com ${GITHUB_KEY}"
-su ant -c "composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}"
+su ${USER} -c "composer config --global github-oauth.github.com ${GITHUB_KEY}"
+su ${USER} -c "composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}"
 
-su ant -c "mkdir -p /var/www/log && touch /var/www/log/apache.access.log && touch /var/www/log/apache.error.log"
+su ${USER} -c "mkdir -p /var/www/log"
+su ${USER} -c "touch /var/www/log/apache.access.log"
+su ${USER} -c "touch /var/www/log/apache.error.log"
+
 echo "" > /var/www/log/apache.access.log
 echo "" > /var/www/log/apache.error.log
 
-#apache2ctl start
+export APACHE_RUN_USER=${USER}
+export APACHE_RUN_GROUP=${USER}
 
 #if [ -f /var/www/package.json ]; then
-#    su ant -c "npm start"
+#	apache2ctl start
+#	su ${USER} -c "npm start"
+#	apache2ctl stop
 #fi
-
-#apache2ctl stop
 
 exec apache2-foreground
