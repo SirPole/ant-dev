@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-if [ $(whoami) == root ]; then
-    exec docker-compose exec web webpack-bundle-anylyzer "$@"
-fi
-
-exec docker-compose exec -u ant web webpack-bundle-anylyzer "$@"
