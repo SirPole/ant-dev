@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+DB=""
+FILE=$1
+
+if [[ $2 != "" ]]; then
+	DB=$1
+	FILE=$2
+fi
+
+exec docker-compose exec database mysql -uroot -proot ${DB} < ${FILE}
