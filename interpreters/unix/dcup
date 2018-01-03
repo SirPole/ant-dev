@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+docker-compose up -d
+
+if [[ $1 = -i ]]; then
+	USER=ant
+	if [[ $(whoami) == root ]]; then
+	    USER=root
+	fi
+
+	exec docker-compose exec -u ${USER} web bash
+fi
