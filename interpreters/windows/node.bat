@@ -1,3 +1,3 @@
 @echo off
 
-START "" docker-compose exec -u ant web node $*
+docker-compose exec web node $*

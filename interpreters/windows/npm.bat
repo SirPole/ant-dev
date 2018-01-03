@@ -1,3 +1,3 @@
 @echo off
 
-START "" docker-compose exec -u ant web npm $*
+docker-compose exec web npm $*
