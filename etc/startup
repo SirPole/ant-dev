@@ -22,10 +22,4 @@ echo "" > /var/www/log/apache.error.log
 export APACHE_RUN_USER=${USER}
 export APACHE_RUN_GROUP=${USER}
 
-#if [ -f /var/www/package.json ]; then
-#	apache2ctl start
-#	su ${USER} -c "npm start"
-#	apache2ctl stop
-#fi
-
 exec apache2-foreground
