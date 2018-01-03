@@ -1,39 +1,35 @@
-version: '3'
+version: "3.4"
 services:
   web:
     container_name: web
     image: sirpole/ant-dev
-    links:
-      - database:db
     volumes:
       - .:/var/www
     environment:
       - GITHUB_KEY
       - GITLAB_KEY
-      - APACHE_RUN_USER=ant
-      - APACHE_RUN_GROUP=ant
       - NETTE_DEBUG=1
     ports:
       - "80:80"
       - "443:443"
       - "8000:8000"
       - "3000:3000"
+      - "3001:3001"
+      - "3002:3002"
   database:
     container_name: database
-    image: mariadb
-    command: --sql_mode=""
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-    ports:
-      - "3306:3306"
+    image: mysql:8
+    command: mysqld --innodb_data_file_path="ibdata1:10M:autoextend" --sql-mode="" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - ~/.ant/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
-    links:
-      - database:db
     ports:
       - "8080:80"
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - PMA_HOST=database
+      - PMA_USER=root
+      - PMA_PASSWORD=root
