@@ -36,20 +36,20 @@ RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get install -y nodejs
 
-# Enable mod_rewrite
+# Enable apache mods
 RUN a2enmod rewrite headers
 
 # Install global npm packages
 RUN npm config set user 0 \
     && npm config set unsafe-perm true \
     && npm i -g \
-        phantomjs-prebuilt \
-        webpack-bundle-analyzer \
-        tldr npm-check-updates \
+        tldr \
+        del-cli \
         node-sass \
         sass-lint \
+        puppeteer \
         concurrently \
-        del-cli
+        npm-check-updates
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
