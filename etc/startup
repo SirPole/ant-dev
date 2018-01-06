@@ -19,5 +19,6 @@ su ${USER} -c "touch log/apache.error.log"
 
 : > log/apache.access.log
 : > log/apache.error.log
+: > log/php.error.log
 
 exec apache2-foreground
