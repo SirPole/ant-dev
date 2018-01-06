@@ -4,15 +4,19 @@ set -e
 
 USER=root
 if [[ $(stat -c "%u" .) != 0 ]]; then
-	useradd -s /bin/bash -u $(stat -c "%u" /var/www) -o -m ant
+	useradd -s /bin/bash -u $(stat -c "%u" .) -o -m ant
 	USER=ant
 	chown ${USER} .
 	export APACHE_RUN_USER=${USER}
 	export APACHE_RUN_GROUP=${USER}
 fi
 
+su ${USER} -c "ssh-keyscan git.antstudio.cz >> ~/.ssh/known_hosts"
+su ${USER} -c "ssh-keyscan antstudio.cz >> ~/.ssh/known_hosts"
+su ${USER} -c "ssh-keyscan antstudio.eu >> ~/.ssh/known_hosts"
+
 su ${USER} -c "composer config --global github-oauth.github.com ${GITHUB_KEY}"
-su ${USER} -c "composer config --global --auth gitlab-token.git.antstudio.cz ${GITLAB_KEY}"
+su ${USER} -c "composer config --global --auth gitlab-oauth.git.antstudio.cz ${GITLAB_KEY}"
 su ${USER} -c "mkdir -p log"
 su ${USER} -c "touch log/apache.access.log"
 su ${USER} -c "touch log/apache.error.log"
