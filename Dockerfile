@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -yqq \
     vim \
     bzip2 \
     gnupg \
+    ssl-cert \
     zlib1g-dev \
     libicu-dev \
     libpng-dev \
@@ -36,8 +37,9 @@ RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get install -y nodejs
 
-# Enable apache mods
-RUN a2enmod rewrite headers
+# Enable apache mods and ssl host
+RUN a2enmod rewrite headers ssl \
+    && a2ensite default-ssl
 
 # Install global npm packages
 RUN npm config set user 0 \
@@ -53,6 +55,7 @@ RUN npm config set user 0 \
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
+COPY etc/apacheVirtualHostSSL.conf /etc/apache2/sites-available/default-ssl.conf
 
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
