@@ -3,32 +3,12 @@ FROM php:apache-stretch
 MAINTAINER Martin Brychta <martin@brychta.name>
 
 # Install dependencies
-RUN apt-get update && apt-get install -yqq \
-    git \
-    tar \
-    g++ \
-    vim \
-    bzip2 \
-    gnupg \
-    ssl-cert \
-    zlib1g-dev \
-    libicu-dev \
-    libpng-dev \
-    libxml2-dev \
-    libjpeg-dev \
-    libfontconfig \
-    libfreetype6-dev
+RUN apt-get update \
+    && apt-get install -yqq bzip2 g++ git gnupg libfontconfig libfreetype6-dev libicu-dev libjpeg-dev libpng-dev libxml2-dev ssl-cert tar vim zlib1g-dev
 
 # Enable required php extensions
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-install -j$(nproc) \
-    gd \
-    pdo \
-    zip \
-    intl \
-    soap \
-    mbstring \
-    pdo_mysql
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd intl mbstring pdo pdo_mysql soap zip
 
 # Install Composer
 RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -44,14 +24,7 @@ RUN a2enmod rewrite headers ssl \
 # Install global npm packages
 RUN npm config set user 0 \
     && npm config set unsafe-perm true \
-    && npm i -g \
-        tldr \
-        del-cli \
-        node-sass \
-        sass-lint \
-        puppeteer \
-        concurrently \
-        npm-check-updates
+    && npm i -g concurrently del-cli npm-check-updates tldr
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
