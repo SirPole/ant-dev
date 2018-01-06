@@ -11,9 +11,9 @@ if [[ $(stat -c "%u" .) != 0 ]]; then
 	export APACHE_RUN_GROUP=${USER}
 fi
 
+su ${USER} -c "mkdir -p ~/.ssh"
+su ${USER} -c "touch ~/.ssh/known_hosts"
 su ${USER} -c "ssh-keyscan git.antstudio.cz >> ~/.ssh/known_hosts"
-su ${USER} -c "ssh-keyscan antstudio.cz >> ~/.ssh/known_hosts"
-su ${USER} -c "ssh-keyscan antstudio.eu >> ~/.ssh/known_hosts"
 
 su ${USER} -c "composer config --global github-oauth.github.com ${GITHUB_KEY}"
 su ${USER} -c "composer config --global --auth gitlab-oauth.git.antstudio.cz ${GITLAB_KEY}"
