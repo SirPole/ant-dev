@@ -5,9 +5,9 @@ services:
     image: sirpole/ant-dev
     volumes:
       - .:/var/www
+      - ~/.ssh:/.ssh-host
     environment:
       - GITHUB_KEY
-      - GITLAB_KEY
       - NETTE_DEBUG=1
     ports:
       - "80:80"
