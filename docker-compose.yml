@@ -5,9 +5,9 @@ services:
     image: sirpole/ant-dev
     volumes:
       - .:/var/www
-      - ~/.ssh:/.ssh-host
-      - ~/.ant/composer:~/.composer/cache
-      - ~/.ant/npm:~/.npm/_cacache
+      - ~/.ssh:/.ant/ssh-host
+      - ~/.ant/composer:/.ant/composer/cache
+      - ~/.ant/npm:/.ant/npm
     environment:
       - GITHUB_KEY
       - NETTE_DEBUG=1

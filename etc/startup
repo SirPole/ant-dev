@@ -14,7 +14,7 @@ fi
 su ${USER} -c "mkdir -p log"
 su ${USER} -c "mkdir -p ~/.ssh"
 su ${USER} -c "ssh-keyscan git.antstudio.cz >> ~/.ssh/known_hosts"
-su ${USER} -c "cat /.ssh-host/id_rsa > ~/.ssh/id_rsa; chmod 400 ~/.ssh/id_rsa"
+su ${USER} -c "cat /.ant/ssh-host/id_rsa > ~/.ssh/id_rsa; chmod 400 ~/.ssh/id_rsa"
 
 if [[ ${GITHUB_KEY} ]]; then
 	su ${USER} -c "composer config --global github-oauth.github.com ${GITHUB_KEY}"

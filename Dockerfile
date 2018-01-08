@@ -40,6 +40,10 @@ COPY etc/.bashrc /etc/bash.bashrc
 COPY etc/startup /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup
 
+# Set environment variables
+ENV COMPOSER_HOME /.ant/composer
+ENV npm_config_cache /.ant/npm
+
 WORKDIR /var/www
 
 ENTRYPOINT ["/usr/local/bin/startup"]
