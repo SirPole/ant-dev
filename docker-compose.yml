@@ -6,6 +6,8 @@ services:
     volumes:
       - .:/var/www
       - ~/.ssh:/.ssh-host
+      - ~/.ant/composer:~/.composer/cache
+      - ~/.ant/npm:~/.npm/_cacache
     environment:
       - GITHUB_KEY
       - NETTE_DEBUG=1
