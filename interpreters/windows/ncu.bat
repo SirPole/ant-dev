@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose exec web ncu $*
+docker exec web ncu %*

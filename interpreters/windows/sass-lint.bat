@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose exec web sass-lint $*
+docker exec web sass-lint %*

@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose exec web composer $*
+docker exec web composer %*

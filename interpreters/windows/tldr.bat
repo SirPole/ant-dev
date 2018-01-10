@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose exec web tldr $*
+docker exec web tldr %*

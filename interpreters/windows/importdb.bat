@@ -8,4 +8,4 @@ IF /I NOT "%~2"=="" (
 	SET FILE=%2
 )
 
-docker-compose exec -T database mysql -uroot -proot %DB% < %FILE%
+docker exec database mysql -uroot -proot %DB% < %FILE%

@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose exec web php $*
+docker exec web php %*

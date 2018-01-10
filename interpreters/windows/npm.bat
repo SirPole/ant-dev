@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose exec web npm $*
+docker exec web npm %*
