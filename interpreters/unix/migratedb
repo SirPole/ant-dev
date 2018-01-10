@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+USER=ant
+if [ $(whoami) == root ]; then
+    USER=root
+fi
+
+exec docker exec -u ${USER} web php index.php migrations:migrate
