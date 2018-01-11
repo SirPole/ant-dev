@@ -2,6 +2,10 @@
 
 set -e
 
+if [ ! "$(docker ps -q -f name=database)" ]; then
+    dcup
+fi
+
 DB=""
 FILE=$1
 
@@ -10,4 +14,4 @@ if [[ $2 != "" ]]; then
 	FILE=$2
 fi
 
-exec docker-compose exec database mysql -uroot -proot ${DB} < ${FILE}
+exec docker exec database mysql -uroot -proot ${DB} < ${FILE}
