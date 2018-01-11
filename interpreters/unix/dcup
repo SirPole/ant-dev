@@ -2,13 +2,18 @@
 
 set -e
 
-docker-compose up -d
+if [ ! "$(docker ps -q -f name=web)" ]; then
+    if [ "$(docker ps -aq -f status=exited -f name=web)" ]; then
+        echo -e "Removing containers"
+        docker rm web database phpmyadmin
+    fi
+    docker-compose up -d
+fi
 
 if [[ $1 = -i ]]; then
-	USER=ant
-	if [[ $(whoami) == root ]]; then
-	    USER=root
-	fi
-
-	exec docker-compose exec -u ${USER} web bash
+    USER=ant
+    if [[ $(whoami) == root ]]; then
+        USER=root
+    fi
+    exec docker exec -it -u ${USER} web bash
 fi

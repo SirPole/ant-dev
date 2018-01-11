@@ -1,10 +1,14 @@
 @echo off
 
-docker-compose up -d --no-color
+FOR /f %%i IN ('docker ps -q -f name^=web') DO SET IS_RUNNING=%%i
+FOR /f %%j IN ('docker ps -aq -f status^=exited -f name^=web') DO SET IS_EXITED=%%j
 
-IF /I "%~1"=="-i" (GOTO EXEC) ELSE (GOTO DONE)
+IF /I [%IS_RUNNING%]==[] (
+    IF /I NOT [%IS_EXITED%]==[] (
+        echo Removing old containers
+        docker rm web database phpmyadmin
+    )
+    docker-compose up -d --no-color
+)
 
-:EXEC
-docker-compose exec web bash
-
-:DONE
+IF /I "%~1"=="-i" (docker exec -it web bash)
