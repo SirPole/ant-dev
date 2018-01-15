@@ -4,7 +4,7 @@ MAINTAINER Martin Brychta <martin@brychta.name>
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -yqq bzip2 g++ git gnupg libfontconfig libfreetype6-dev libicu-dev libjpeg-dev libpng-dev libxml2-dev ssl-cert tar vim zlib1g-dev
+    && apt-get install -yqq bzip2 g++ git gnupg libfontconfig libfreetype6-dev libicu-dev libjpeg-dev libpng-dev libxml2-dev ssl-cert stunnel tar vim zlib1g-dev
 
 # Enable required php extensions
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -32,6 +32,10 @@ COPY etc/apacheVirtualHostSSL.conf /etc/apache2/sites-available/default-ssl.conf
 
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
+
+# Configure stunnel
+COPY etc/stunnel.conf /etc/stunnel/
+RUN sed -s "s/ENABLED=0/ENABLED=1/" /etc/default/stunnel4 > /etc/default/stunnel4
 
 # Custom bashrc
 COPY etc/.bashrc /etc/bash.bashrc
