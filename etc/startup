@@ -24,4 +24,5 @@ fi
 : > log/apache.error.log
 : > log/php.error.log
 
+stunnel
 exec apache2-foreground
