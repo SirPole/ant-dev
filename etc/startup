@@ -7,6 +7,7 @@ if [[ $(stat -c "%u" .) != 0 ]]; then
 	useradd -s /bin/bash -u $(stat -c "%u" .) -o -m ant
 	USER=ant
 	chown ${USER} .
+	chown -R ${USER} /.ant
 	export APACHE_RUN_USER=${USER}
 	export APACHE_RUN_GROUP=${USER}
 fi

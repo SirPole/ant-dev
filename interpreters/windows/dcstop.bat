@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose stop
+docker stop web phpmyadmin database

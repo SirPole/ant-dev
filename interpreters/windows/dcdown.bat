@@ -1,3 +1,4 @@
 @echo off
 
-docker-compose down
+CALL dcstop
+docker rm web phpmyadmin database

@@ -7,15 +7,14 @@ if [ "$(docker ps -q -f name=web)" ]; then
         echo -e "Warning! Current containers were created from different directory."
         if [[ -f "docker-compose.yml" ]]; then
             echo -e "Found docker-compose.yml in current directory. Will destroy old containers and create new ones."
-            docker stop web > /dev/null
-            docker rm web > /dev/null
+            dcdown > /dev/null
             docker-compose up -d
         fi
     fi
 else
     if [[ "$(docker ps -aq -f status=exited -f name=web)" ]]; then
         echo -e "Removing stopped containers"
-        docker rm web > /dev/null
+        dcdown > /dev/null
     fi
     docker-compose up -d
 fi
