@@ -645,17 +645,6 @@ function __setprompt
 	PS1+="\[${DARKGRAY}\](\[${CYAN}\]\$(date +%a) $(date +%b-'%-m')" # Date
 	PS1+="${BLUE} $(date +'%-I':%M:%S%P)\[${DARKGRAY}\])-" # Time
 
-	# CPU
-	PS1+="(\[${MAGENTA}\]CPU $(cpu)%"
-
-	# Jobs
-	PS1+="\[${DARKGRAY}\]:\[${MAGENTA}\]\j"
-
-	# Network Connections (for a server - comment out for non-server)
-	PS1+="\[${DARKGRAY}\]:\[${MAGENTA}\]Net $(awk 'END {print NR}' /proc/net/tcp)"
-
-	PS1+="\[${DARKGRAY}\])-"
-
 	# User and server
 	local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
 	local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
@@ -667,6 +656,12 @@ function __setprompt
 
 	# Current directory
 	PS1+="\[${DARKGRAY}\]:\[${BROWN}\]\w\[${DARKGRAY}\])-"
+
+	# Current branch
+	local GIT_BRANCH="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+	if [[ ${GIT_BRANCH} ]]; then
+		PS1+="(\[${MAGENTA}\]${GIT_BRANCH}\[${DARKGRAY}\])-"
+	fi
 
 	# Total size of files in current directory
 	PS1+="(\[${GREEN}\]$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')\[${DARKGRAY}\]:"
