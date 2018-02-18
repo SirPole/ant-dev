@@ -2,4 +2,15 @@
 
 set -e
 
-docker-compose pull
+case "$(uname -s)" in
+    Linux*)               MACHINE=Linux;;
+    Darwin*)              MACHINE=Mac;;
+    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
+    *)                    MACHINE=Unknown;;
+esac
+
+if [[ ${MACHINE} == Windows ]];then
+    exec winpty dcpull.bat $@
+fi
+
+docker-compose pull --parallel --quiet
