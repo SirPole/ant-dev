@@ -11,6 +11,7 @@ services:
     environment:
       - GITHUB_KEY
       - NETTE_DEBUG=1
+      - CHOKIDAR_USEPOLLING=1
     ports:
       - "80:80"
       - "443:443"
