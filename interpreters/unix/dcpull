@@ -2,14 +2,7 @@
 
 set -e
 
-case "$(uname -s)" in
-    Linux*)               MACHINE=Linux;;
-    Darwin*)              MACHINE=Mac;;
-    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
-    *)                    MACHINE=Unknown;;
-esac
-
-if [[ ${MACHINE} == Windows ]];then
+if [[ $(machine) == Windows ]]; then
     exec winpty dcpull.bat $@
 fi
 

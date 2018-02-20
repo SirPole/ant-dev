@@ -2,18 +2,11 @@
 
 set -e
 
-case "$(uname -s)" in
-    Linux*)               MACHINE=Linux;;
-    Darwin*)              MACHINE=Mac;;
-    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
-    *)                    MACHINE=Unknown;;
-esac
-
-if [[ ${MACHINE} == Windows ]];then
+if [[ $(machine) == Windows ]]; then
     exec winpty dcup.bat $@
 fi
 
-if [ "$(docker ps -q -f name=web)" ]; then
+if [[ "$(docker ps -q -f name=web)" ]]; then
     if [[ $(docker inspect -f "{{range .Mounts}}{{if eq .Destination \"/var/www\"}}{{.Source}}{{end}}{{end}}" web)!=$(pwd) ]]; then
         echo -e "Warning! Current containers were created from different directory."
         if [[ -f "docker-compose.yml" ]]; then

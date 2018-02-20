@@ -2,7 +2,7 @@
 
 set -e
 
-if [ ! "$(docker ps -q -f name=database)" ]; then
+if [[ ! "$(docker ps -q -f name=database)" ]]; then
     dcup
 fi
 

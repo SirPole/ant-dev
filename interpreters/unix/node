@@ -2,12 +2,12 @@
 
 set -e
 
-if [ ! "$(docker ps -q -f name=web)" ]; then
+if [[ ! "$(docker ps -q -f name=web)" ]]; then
     dcup
 fi
 
 USER=ant
-if [ $(whoami) == root ]; then
+if [[ $(whoami) == root || $(machine) == Windows ]]; then
     USER=root
 fi
 
