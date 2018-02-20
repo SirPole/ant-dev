@@ -16,14 +16,14 @@ IF /I [%CONTAINER_PATH%]==[%CURRENT_PATH%] (GOTO EXEC) ELSE (
 FOR /f %%i IN ('docker ps -aq -f status^=exited -f name^=web') DO SET IS_EXITED=%%i
 IF /I NOT [%IS_EXITED%]==[] (
     ECHO Removing old containers
-    CALL dcdown
+    CALL dcdown >nul 2>%1
 )
 GOTO START
 
 :SHOULDRESTART
 IF EXIST docker-compose.yml (
     ECHO Found docker-compose.yml in current directory. Will destroy old containers and create new ones.
-    CALL dcstop
+    CALL dcstop >nul 2>%1
     GOTO STOPPED
 ) ELSE (GOTO EXEC)
 
