@@ -24,7 +24,7 @@ RUN a2enmod rewrite headers ssl \
 # Install global npm packages
 RUN npm config set user 0 \
     && npm config set unsafe-perm true \
-    && npm i -g concurrently del-cli npm-check-updates tldr
+    && npm i -g concurrently del-cli npm npm-check-updates tldr
 
 # Apache virtual host configuration
 COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
