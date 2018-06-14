@@ -47,6 +47,7 @@ RUN chmod +x /usr/local/bin/startup
 # Set environment variables
 ENV COMPOSER_HOME /.ant/composer
 ENV npm_config_cache /.ant/npm
+ENV TERM xterm-256color
 
 WORKDIR /var/www
 
