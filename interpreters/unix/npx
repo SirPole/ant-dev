@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ ! "$(docker ps -q -f name=web)" ]]; then
+    dcup
+fi
+
+USER=ant
+if [[ $(whoami) == root || $(machine) == Windows ]]; then
+    USER=root
+fi
+
+exec docker exec -e "TERM=xterm-256color" -u ${USER} web npx "$@"
