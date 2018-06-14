@@ -1,3 +1,3 @@
 @echo off
 
-docker-compose pull --parallel --quiet
+docker-compose pull --quiet

@@ -6,4 +6,4 @@ if [[ $(machine) == Windows ]]; then
     exec winpty dcpull.bat $@
 fi
 
-docker-compose pull --parallel --quiet
+docker-compose pull --quiet
