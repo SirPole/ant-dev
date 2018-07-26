@@ -4,7 +4,7 @@ set -e
 
 USER=root
 if [[ $(stat -c "%u" .) != 0 ]]; then
-	useradd -s /bin/bash -u $(stat -c "%u" .) -o -m ant
+	useradd -s /usr/bin/zsh -u $(stat -c "%u" .) -o -m ant
 	USER=ant
 	chown ${USER} .
 	chown -R ${USER} /.ant

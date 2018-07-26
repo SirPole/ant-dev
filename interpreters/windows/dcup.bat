@@ -33,4 +33,4 @@ GOTO EXEC
 
 
 :EXEC
-IF /I "%~1"=="-i" (docker exec -it web bash)
+IF /I "%~1"=="-i" (docker exec -it web /usr/bin/zsh)

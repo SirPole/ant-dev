@@ -28,5 +28,5 @@ if [[ $1 = -i ]]; then
     if [[ $(whoami) == root ]]; then
         USER=root
     fi
-    exec docker exec -it -u ${USER} web bash
+    exec docker exec -it -u ${USER} web /usr/bin/zsh
 fi
