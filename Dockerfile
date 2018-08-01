@@ -22,7 +22,7 @@ COPY etc/apacheVirtualHost.conf /etc/apache2/sites-available/000-default.conf
 COPY etc/apacheVirtualHostSSL.conf /etc/apache2/sites-available/default-ssl.conf
 
 # Enable apache mods and ssl host
-RUN a2enmod rewrite headers ssl \
+RUN a2enmod deflate expires headers proxy proxy_http rewrite ssl \
     && a2ensite default-ssl
 
 # Extra php settings
