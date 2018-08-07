@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+DIR="$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)"
+RET=0
+crontab -l 2>/dev/null | grep -q 'ant-dev-selfupdate' >/dev/null 2>&1 || RET=$?
+if [[ $RET != 0 ]]; then
+    (crontab -l 2>/dev/null; echo " 0 10 * * * ${DIR}/ant-dev-selfupdate") | crontab -
+fi
+
+cd ${DIR}/../..
+
+git fetch --all
+git stash
+git checkout master --force
+git rebase origin/master
+git stash apply
+
+docker pull -a sirpole/ant-dev
+docker pull mysql
+docker pull phpmyadmin/phpmyadmin
+docker system prune -f
+
+exit
