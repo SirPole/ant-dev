@@ -2,8 +2,10 @@
 
 set -e
 
-if [[ $(machine) == Windows ]]; then
-    exec winpty dcup.bat $@
+RET=0
+crontab -l 2>/dev/null | grep -q 'ant-dev-selfupdate' >/dev/null 2>&1 || RET=$?
+if [[ $RET != 0 ]]; then
+    (crontab -l 2>/dev/null; echo " 0 10 * * * $(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/ant-dev-selfupdate") | crontab -
 fi
 
 if [[ "$(docker ps -q -f name=web)" ]]; then
