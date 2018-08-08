@@ -11,4 +11,4 @@ if [[ $(whoami) == root || $(ant machine) == Windows ]]; then
     USER=root
 fi
 
-exec docker exec -u ${USER} web php "$@"
+exec docker exec -iu ${USER} web php "$@"
