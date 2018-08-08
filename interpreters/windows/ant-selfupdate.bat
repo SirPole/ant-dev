@@ -6,10 +6,10 @@ IF errorlevel 1 (SCHTASKS /Create /tn "Update ant-dev" /tr "PowerShell -WindowSt
 CD /D %~dp0/../..
 
 git fetch --all
-git stash
+::git stash
 git checkout master --force
 git reset --hard origin/master
-git stash apply
+::git stash apply
 
 docker pull -a sirpole/ant-dev
 docker pull mysql
