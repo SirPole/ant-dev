@@ -3,12 +3,12 @@
 set -e
 
 if [[ ! "$(docker ps -q -f name=web)" ]]; then
-    dcup
+    ant up
 fi
 
 USER=ant
-if [[ $(whoami) == root || $(machine) == Windows ]]; then
+if [[ $(whoami) == root || $(ant machine) == Windows ]]; then
     USER=root
 fi
 
-exec docker exec -e "TERM=xterm-256color" -u ${USER} web nvm "$@"
+exec docker exec -u ${USER} web nvm "$@"

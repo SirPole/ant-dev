@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+TOOL=$1
+
+if [[ "${TOOL}" == "" ]]; then
+    TOOL=help
+else
+    shift
+fi
+
+if [[ ! -f "$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/ant-${TOOL}" ]]; then
+    echo "Tool '${TOOL}' does not exist!"
+    echo ""
+    TOOL=help
+fi
+
+exec ant-${TOOL} $@

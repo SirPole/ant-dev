@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ $(ant machine) == Windows ]]; then
+    exec winpty ant pull $@
+fi
+
+docker-compose pull --quiet
