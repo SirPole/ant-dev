@@ -8,7 +8,7 @@ CD /D %~dp0/../..
 git fetch --all
 git stash
 git checkout master --force
-git rebase origin/master
+git reset --hard origin/master
 git stash apply
 
 docker pull -a sirpole/ant-dev
