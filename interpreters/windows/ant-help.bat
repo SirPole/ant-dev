@@ -19,6 +19,7 @@ echo         -i     - Start containers and open interactive shell
 echo.
 echo Other standalone interpreters, these are not prefixed by ant command:
 echo     composer
+echo     mysql
 echo     ncu
 echo     node
 echo     npm
