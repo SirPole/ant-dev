@@ -12,6 +12,7 @@ FILE=$1
 if [[ $2 != "" ]]; then
 	DB=$1
 	FILE=$2
+    docker exec -i database mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS ${DB}"
 fi
 
 exec docker exec -i database mysql -uroot -proot ${DB} < ${FILE}
