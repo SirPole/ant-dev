@@ -8,6 +8,7 @@ SET FILE=%1
 IF /I NOT "%~2"=="" (
 	SET DB=%1
 	SET FILE=%2
+	docker exec -i database mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS %1"
 )
 
 docker exec -i database mysql -uroot -proot %DB% < %FILE%
