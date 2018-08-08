@@ -3,4 +3,4 @@
 FOR /f %%i IN ('docker ps -q -f name^=web') DO SET IS_RUNNING=%%i
 IF /I [%IS_RUNNING%]==[] (CALL ant up)
 
-docker exec web php index.php migrations:migrate
+docker exec -i web php index.php migrations:migrate

@@ -11,4 +11,4 @@ if [[ $(whoami) == root || $(ant machine) == Windows ]]; then
     USER=root
 fi
 
-exec docker exec -u ${USER} web npm "$@"
+exec docker exec -iu ${USER} web npm "$@"
