@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-if [[ $(machine) == Windows ]]; then
-    exec winpty dcpull.bat $@
-fi
-
-docker-compose pull --quiet

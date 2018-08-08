@@ -2,5 +2,5 @@
 
 set -e
 
-dcstop
+ant stop
 docker rm web phpmyadmin database
