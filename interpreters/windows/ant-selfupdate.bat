@@ -14,4 +14,4 @@ git reset --hard origin/master
 docker pull -a sirpole/ant-dev
 docker pull mysql
 docker pull phpmyadmin/phpmyadmin
-docker system prune
+docker system prune -f
