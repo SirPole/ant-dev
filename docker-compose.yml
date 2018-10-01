@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/var/www
       - ~/.ssh:/.ant/ssh-host
-      - ~/.ant/composer:/.ant/composer/cache
+      - ~/.ant/composer:/.ant/composer
       - ~/.ant/npm:/.ant/npm
     environment:
       - GITHUB_KEY
