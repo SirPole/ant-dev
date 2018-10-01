@@ -47,10 +47,6 @@ RUN curl -sL https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
     && apt-get install -y nodejs
 
-# Install NVM
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-RUN cp -r /root/.nvm /etc/skel/
-
 # Install global npm packages
 RUN npm config set user 0 \
     && npm config set unsafe-perm true \
