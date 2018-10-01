@@ -50,7 +50,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
 # Install global npm packages
 RUN npm config set user 0 \
     && npm config set unsafe-perm true \
-    && npm i -g concurrently del-cli node-sass npm@latest npm-check-updates puppeteer tldr
+    && npm i -g concurrently del-cli npm@latest npm-check-updates puppeteer tldr
 
 WORKDIR /var/www
 
