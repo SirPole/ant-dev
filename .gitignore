@@ -1,3 +1,4 @@
 .idea/
 log/
-index.php
+dist/*
+!dist/docker-compose.yml

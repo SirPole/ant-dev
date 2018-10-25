@@ -1,33 +1,14 @@
-version: "3.7"
+version: "3.4"
+
 services:
-  web:
-    container_name: web
-    image: sirpole/ant-dev:next
-    volumes:
-      - .:/var/www
-      - ~/.ssh:/.ant/ssh-host
-      - ~/.ant/composer:/.ant/composer
-      - ~/.ant/npm:/.ant/npm
-    environment:
-      - GITHUB_KEY
-      - NETTE_DEBUG=1
-    ports:
-      - 80:80
-      - 443:443
-      - 3000:3000
-      - 3001:3001
-      - 3002:3002
-
-
-
-  apache:
-    container_name: apache
-    image: httpd:alpine
+  httpd:
+    container_name: httpd
+    image: ant-dev:httpd
     restart: always
     volumes:
-      - .:/usr/local/apache2/htdocs/
+    - .:/usr/local/apache2/htdocs/
     environment:
-      - NETTE_DEBUG=1
+    - NETTE_DEBUG=1
     ports:
     - 80:80
     - 443:443
@@ -37,31 +18,32 @@ services:
     image: node:8-alpine
     restart: always
     volumes:
-      - .:/home/node/app
-      - ~/.ant/npm:/home/node/.npm
+    - .:/home/node/app
+    - ~/.ant/npm:/root/.npm
+    environment:
+    - NPM_CONFIG_USER=0
+    - NPM_CONFIG_UNSAFE-PERM=true
     ports:
-      - 3000:3000
-      - 3001:3001
-      - 3002:3002
+    - 3000:3000
+    - 3001:3001
+    - 3002:3002
 
   php:
     container_name: php
-    image: php:7.2-fpm-alpine
-#    image: 7.1-fpm-alpine
-#    image: 5.6-fpm-alpine
+    image: ant-dev:php-7.2
     restart: always
     volumes:
     - .:/var/www/html
     ports:
-    - "35729:35729"
+    - "9000:9000"
 
   composer:
     container_name: composer
     image: composer
     restart: always
     volumes:
-      - .:/app
-      - ~/.ant/composer:/tmp
+    - .:/app
+    - ~/.ant/composer:/tmp
 
   database:
     container_name: database
@@ -69,47 +51,59 @@ services:
     restart: always
     command: mysqld --innodb_data_file_path="ibdata1:10M:autoextend" --sql-mode="" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
     volumes:
-      - ~/.ant/mysql:/var/lib/mysql
+    - ~/.ant/mysql:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-
-  redis:
-    container_name: redis
-    image: redis:alpine
-    restart: always
-    volumes:
-      - ~/.ant/redis:/data
-    ports:
-      - 6379:6379
-
-  elasticsearch:
-    container_name: elasticsearch
-    image: elasticsearch:6.4.1
-    restart: always
-    volumes:
-      -  ~/.ant/elasticsearch-data:/usr/share/elasticsearch/data
-    environment:
-      - discovery.type=single-node
-    ports:
-      - 9200:9200
-      - 9300:9300
+    - MYSQL_ROOT_PASSWORD=root
 
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
-      - PMA_HOST=database
-      - PMA_USER=root
-      - PMA_PASSWORD=root
+    - PMA_HOST=database
+    - PMA_USER=root
+    - PMA_PASSWORD=root
     ports:
-      - 8080:80
+    - 8080:80
 
   adminer:
     container_name: adminer
     image: adminer
     restart: always
     environment:
-      - ADMINER_DEFAULT_SERVER=database
+    - ADMINER_DEFAULT_SERVER=database
     ports:
-      - 8181:8080
+    - 8181:8080
+
+#  redis:
+#    container_name: redis
+#    image: redis:alpine
+#    restart: always
+#    volumes:
+#    - ~/.ant/redis:/data
+#    ports:
+#    - 6379:6379
+#
+#  phpredisadmin:
+#    container_name: phpredisadmin
+#    image: erikdubbelboer/phpredisadmin
+#    restart: always
+#    ports:
+#    - 8282:80
+#
+#  elasticsearch:
+#    container_name: elasticsearch
+#    image: elasticsearch:6.4.1
+#    restart: always
+#    volumes:
+#    - ~/.ant/elasticsearch-data:/usr/share/elasticsearch/data
+#    environment:
+#    - discovery.type=single-node
+#    ports:
+#    - 9200:9200
+#    - 9300:9300
+#
+#  puppeteer:
+#    container_name: puppeteer
+#    image: alekzonder/puppeteer
+#    restart: always
