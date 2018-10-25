@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+set -e
+
+USER=root
+if [[ $(stat -c "%u" .) != 0 ]]; then
+	useradd -s /usr/bin/sh -u $(stat -c "%u" .) -o -m ant
+	USER=ant
+	chown ${USER} .
+	export APACHE_RUN_USER=${USER}
+	export APACHE_RUN_GROUP=${USER}
+fi
+
+: > log/apache.access.log
+: > log/apache.error.log
+: > log/php.error.log
+
+stunnel
+exec apache2-foreground
