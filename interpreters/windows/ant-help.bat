@@ -24,7 +24,6 @@ echo     ncu
 echo     node
 echo     npm
 echo     npx
-echo     nvm
 echo     php
 echo     sass-lint
 echo     tldr
