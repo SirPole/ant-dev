@@ -2,6 +2,19 @@
 
 set -e
 
+case "$(uname -s)" in
+    Linux*)               MACHINE=Linux;;
+    Darwin*)              MACHINE=Mac;;
+    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
+    *)                    MACHINE=Unknown;;
+esac
+
+export MACHINE="${MACHINE}"
+
+if [[ ${MACHINE} == Windows ]]; then
+    exec winpty ant $@
+fi
+
 TOOL=$1
 
 if [[ "${TOOL}" == "" ]]; then

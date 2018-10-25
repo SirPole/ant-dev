@@ -7,7 +7,7 @@ if [[ ! "$(docker ps -q -f name=web)" ]]; then
 fi
 
 USER=ant
-if [[ $(whoami) == root || $(ant machine) == Windows ]]; then
+if [[ $(whoami) == root ]]; then
     USER=root
 fi
 

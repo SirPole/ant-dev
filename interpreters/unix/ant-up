@@ -2,10 +2,6 @@
 
 set -e
 
-if [[ $(ant machine) == Windows ]]; then
-    exec winpty ant up $@
-fi
-
 RET=0
 crontab -l 2>/dev/null | grep -q 'ant selfupdate' >/dev/null 2>&1 || RET=$?
 if [[ $RET != 0 ]]; then
