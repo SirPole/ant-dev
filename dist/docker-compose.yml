@@ -13,21 +13,6 @@ services:
     - 80:80
     - 443:443
 
-  node:
-    container_name: node
-    image: node:8-alpine
-    restart: always
-    volumes:
-    - .:/home/node/app
-    - ~/.ant/npm:/root/.npm
-    environment:
-    - NPM_CONFIG_USER=0
-    - NPM_CONFIG_UNSAFE-PERM=true
-    ports:
-    - 3000:3000
-    - 3001:3001
-    - 3002:3002
-
   php:
     container_name: php
     image: ant-dev:php-7.2
@@ -35,15 +20,7 @@ services:
     volumes:
     - .:/var/www/html
     ports:
-    - "9000:9000"
-
-  composer:
-    container_name: composer
-    image: composer
-    restart: always
-    volumes:
-    - .:/app
-    - ~/.ant/composer:/tmp
+    - 9000:9000
 
   database:
     container_name: database
@@ -66,44 +43,44 @@ services:
     ports:
     - 8080:80
 
-  adminer:
-    container_name: adminer
-    image: adminer
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+    volumes:
+    - ~/.ant/redis:/data
+    ports:
+    - 6379:6379
+
+  phpredisadmin:
+    container_name: phpredisadmin
+    image: erikdubbelboer/phpredisadmin
     restart: always
     environment:
-    - ADMINER_DEFAULT_SERVER=database
+    - ADMIN_USER=root
+    - ADMIN_PASS=root
+    - REDIS_1_HOST=redis
+    - REDIS_1_PORT=6379
     ports:
-    - 8181:8080
+    - 8181:80
 
-#  redis:
-#    container_name: redis
-#    image: redis:alpine
-#    restart: always
+#  node:
+#    container_name: node
+#    image: node:8-alpine
 #    volumes:
-#    - ~/.ant/redis:/data
-#    ports:
-#    - 6379:6379
-#
-#  phpredisadmin:
-#    container_name: phpredisadmin
-#    image: erikdubbelboer/phpredisadmin
-#    restart: always
-#    ports:
-#    - 8282:80
-#
-#  elasticsearch:
-#    container_name: elasticsearch
-#    image: elasticsearch:6.4.1
-#    restart: always
-#    volumes:
-#    - ~/.ant/elasticsearch-data:/usr/share/elasticsearch/data
+#    - .:/home/node/app
+#    - ~/.ant/npm:/root/.npm
 #    environment:
-#    - discovery.type=single-node
+#    - NPM_CONFIG_USER=0
+#    - NPM_CONFIG_UNSAFE-PERM=true
 #    ports:
-#    - 9200:9200
-#    - 9300:9300
+#    - 3000:3000
+#    - 3001:3001
+#    - 3002:3002
 #
-#  puppeteer:
-#    container_name: puppeteer
-#    image: alekzonder/puppeteer
-#    restart: always
+#  composer:
+#    container_name: composer
+#    image: composer
+#    volumes:
+#    - .:/app
+#    - ~/.ant/composer:/tmp
