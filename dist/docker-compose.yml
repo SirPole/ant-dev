@@ -3,7 +3,7 @@ version: "3.4"
 services:
   httpd:
     container_name: httpd
-    image: ant-dev:httpd
+    image: sirpole/ant-dev:httpd
     restart: always
     volumes:
     - .:/usr/local/apache2/htdocs/
@@ -15,7 +15,7 @@ services:
 
   php:
     container_name: php
-    image: ant-dev:php-7.2
+    image: sirpole/ant-dev:php-7.2
     restart: always
     volumes:
     - .:/var/www/html
@@ -63,6 +63,13 @@ services:
     - REDIS_1_PORT=6379
     ports:
     - 8181:80
+
+  chrome:
+    container_name: chrome
+    image: sirpole/ant-dev:chrome
+    restart: always
+    ports:
+      - 9222:9222
 
 #  node:
 #    container_name: node

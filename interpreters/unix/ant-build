@@ -4,6 +4,7 @@ set -e
 
 DIR=$(cd "$(echo "${BASH_SOURCE[0]%/*}")/../../docker" && pwd)
 
+docker build --no-cache -t sirpole/ant-dev:chrome ${DIR}/chrome
 docker build --no-cache -t sirpole/ant-dev:httpd ${DIR}/httpd
 docker build --no-cache -t sirpole/ant-dev:php-7.2 ${DIR}/php/7.2
 docker build --no-cache -t sirpole/ant-dev:php-7.1 ${DIR}/php/7.1
