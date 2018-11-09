@@ -5,9 +5,7 @@ MAINTAINER Martin Brychta <martin@brychta.name>
 # Extra php settings
 COPY etc/phpExtra.ini /usr/local/etc/php/conf.d/extra.ini
 
-RUN sed -i -e 's/v[[:digit:]]\.[[:digit:]]/edge/g' /etc/apk/repositories \
-    && apk upgrade --update --available \
-    && apk add --no-cache \
+RUN apk add --no-cache \
         freetype-dev \
         icu-dev \
         libjpeg-turbo-dev \

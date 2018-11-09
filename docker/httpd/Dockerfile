@@ -8,9 +8,7 @@ COPY etc/startup /usr/local/bin/
 COPY etc/stunnel.conf /etc/stunnel/
 
 # Enable apache mods, ssl host and startup script
-RUN sed -i -e 's/v[[:digit:]]\.[[:digit:]]/edge/g' /etc/apk/repositories \
-    && apk upgrade --update --available \
-    && apk add --no-cache \
+RUN apk add --no-cache \
         openssl \
         stunnel \
     && openssl genrsa -des3 -out server.key -passout pass:pass 2048 \
