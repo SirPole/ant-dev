@@ -1,6 +1,6 @@
 #!/bin/sh
 
-nohup chromium-browser \
+nohup google-chrome \
 	--disable-background-networking \
 	--disable-default-apps \
 	--disable-extensions \
