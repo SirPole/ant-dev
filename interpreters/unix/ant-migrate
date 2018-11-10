@@ -2,13 +2,12 @@
 
 set -e
 
-if [[ ! "$(docker ps -q -f name=web)" ]]; then
-    ant up
+if [[ ! "$(docker ps -q -f name=php)" ]]; then
+    ant-up
 fi
 
-USER=ant
-if [[ $(whoami) == root ]]; then
-    USER=root
-fi
-
-exec docker exec -iu ${USER} web php index.php migrations:migrate
+exec docker exec \
+    --interactive \
+    --tty \
+    --user $(id -u):$(id -g) \
+    php php index.php migrations:migrate

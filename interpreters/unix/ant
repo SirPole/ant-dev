@@ -2,20 +2,24 @@
 
 set -e
 
-case "$(uname -s)" in
-    Linux*)               MACHINE=Linux;;
-    Darwin*)              MACHINE=Mac;;
-    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
-    *)                    MACHINE=Unknown;;
-esac
-
-export MACHINE="${MACHINE}"
-
-if [[ ${MACHINE} == Windows ]]; then
-    exec winpty ant $@
+if [[ $(ant-machine) == Windows ]]; then
+    exec ant.exe $@
 fi
 
 TOOL=$1
+
+if [[ "${TOOL}" != "selfupdate" ]]; then
+    if [[ ! -f ~/.ant/.lastupdate ]]; then
+        echo "Running update for the first time."
+        ant-selfupdate
+    elif [[ $(date '+%s' --date='-7 days') >= $(cat ~/.ant/.ant-dev-lastupdate) ]]; then
+        echo "Ant-dev hasn't been updated for over a week, do you want to update? [y/n] "
+        read -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            ant-selfupdate
+        fi
+    fi
+fi
 
 if [[ "${TOOL}" == "" ]]; then
     TOOL=help

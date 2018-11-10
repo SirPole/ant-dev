@@ -2,13 +2,14 @@
 
 set -e
 
-if [[ ! "$(docker ps -q -f name=web)" ]]; then
-    ant up
-fi
-
-USER=ant
-if [[ $(whoami) == root ]]; then
-    USER=root
-fi
-
-exec docker exec -iu ${USER} web sass-lint "$@"
+exec docker run \
+  --rm \
+  --interactive \
+  --tty \
+  --user $(id -u):$(id -g) \
+  --name node \
+  --volume $(pwd):/app \
+  --workdir /app \
+  --volume ~/.ant/npm:/tmp \
+  --env npm_config_cache=/tmp \
+  node:8-alpine npx sass-lint "$@"
