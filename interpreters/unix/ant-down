@@ -2,5 +2,8 @@
 
 set -e
 
-ant stop
-docker rm web phpmyadmin database
+if [[ -f ~/.ant/.ant-dev-lock ]]; then
+    cd $(cat ~/.ant/.ant-dev-lock)
+    docker-compose down >/dev/null 2>&1
+    rm -f ~/.ant/.ant-dev-lock
+fi

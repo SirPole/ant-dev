@@ -8,27 +8,21 @@ if [[ $RET != 0 ]]; then
     (crontab -l 2>/dev/null; echo " 0 10 * * * $(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/ant selfupdate") | crontab -
 fi
 
-if [[ "$(docker ps -q -f name=web)" ]]; then
-    if [[ $(docker inspect -f "{{range .Mounts}}{{if eq .Destination \"/var/www\"}}{{.Source}}{{end}}{{end}}" web) != $(pwd) ]]; then
+if [[ "$(docker ps -q -f name=httpd)" ]]; then
+    if [[ $(cat ~/.ant/.ant-dev-lock) != $(pwd) ]]; then
         echo -e "Warning! Current containers were created from different directory."
         if [[ -f "docker-compose.yml" ]]; then
             echo -e "Found docker-compose.yml in current directory. Will destroy old containers and create new ones."
-            ant down > /dev/null 2>&1
+            ant-down
             docker-compose up -d
+            $(pwd) > ~/.ant/.ant-dev-lock
         fi
     fi
 else
-    if [[ "$(docker ps -aq -f status=exited -f name=web)" ]]; then
+    if [[ "$(docker ps -aq -f status=exited -f name=httpd)" ]]; then
         echo -e "Removing stopped containers"
-        ant down > /dev/null 2>&1
+        ant-down
     fi
     docker-compose up -d
-fi
-
-if [[ $1 = -i ]]; then
-    USER=ant
-    if [[ $(whoami) == root ]]; then
-        USER=root
-    fi
-    exec docker exec -it -u ${USER} web /usr/bin/zsh
+    $(pwd) > ~/.ant/.ant-dev-lock
 fi

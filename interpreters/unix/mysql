@@ -6,4 +6,7 @@ if [[ ! "$(docker ps -q -f name=database)" ]]; then
     ant up
 fi
 
-exec docker exec -i database mysql -uroot -proot "$@"
+exec docker exec \
+    --interactive \
+    --tty \
+    database mysql -uroot -proot "$@"

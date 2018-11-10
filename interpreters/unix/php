@@ -2,13 +2,12 @@
 
 set -e
 
-if [[ ! "$(docker ps -q -f name=web)" ]]; then
+if [[ ! "$(docker ps -q -f name=php)" ]]; then
     ant up
 fi
 
-USER=ant
-if [[ $(whoami) == root ]]; then
-    USER=root
-fi
-
-exec docker exec -iu ${USER} web php "$@"
+exec docker exec \
+    --interactive \
+    --tty \
+    --user $(id -u):$(id -g) \
+    php php "$@"
