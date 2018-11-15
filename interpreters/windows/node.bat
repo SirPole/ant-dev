@@ -1,6 +1,12 @@
 @echo off
 
-FOR /f %%i IN ('docker ps -q -f name^=web') DO SET IS_RUNNING=%%i
-IF /I [%IS_RUNNING%]==[] (CALL ant up)
-
-docker exec -i web node %*
+docker run ^
+--rm ^
+--interactive ^
+--tty ^
+--name node ^
+--volume %cd%:/app ^
+--workdir /app ^
+--volume %userprofile%/.ant/npm:/tmp ^
+--env npm_config_cache=/tmp ^
+node:8-alpine node %*

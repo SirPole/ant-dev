@@ -1,6 +1,9 @@
 @echo off
 
-FOR /f %%i IN ('docker ps -q -f name^=web') DO SET IS_RUNNING=%%i
+FOR /f %%i IN ('docker ps -q -f name=database') DO SET IS_RUNNING=%%i
 IF /I [%IS_RUNNING%]==[] (CALL ant up)
 
-docker exec -i web mysql -uroot -proot %*
+docker exec ^
+--interactive ^
+--tty ^
+database mysql -uroot -proot %*
