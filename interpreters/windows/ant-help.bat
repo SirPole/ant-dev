@@ -6,6 +6,8 @@ echo.
 echo Tools:
 echo     build      - Builds custom images locally, usually not necessary
 echo     down       - Stop and destroy running containers
+echo     export     - Exports database to sql file
+echo         Usage: ant export [database] (path to target directory, defaults to .)
 echo     help       - Show this help
 echo     import     - Import database from SQL dump to existing or newly created database
 echo         Usage: ant import (database) [path to sql file]
