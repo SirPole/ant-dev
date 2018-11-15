@@ -1,7 +1,7 @@
 ::[Bat To Exe Converter]
 ::
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJGyX8VAjFBZVXhCLACW7CKEg1+n1+9aGsl0RUa8rd5rY0vmHI+8dpEznevY=
+::fBw5plQjdCyDJGyX8VAjFBZVXhCLACW7CKEg6fjr4+/KtkIIV+pycYzU1PqHI+9z
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -16,10 +16,10 @@
 ::YxY4rhs+aU+IeA==
 ::cxY6rQJ7JhzQF1fEqQJhZksaHErSXA==
 ::ZQ05rAF9IBncCkqN+0xwdVsFAlTMbCXqZg==
-::ZQ05rAF9IAHYFVzEqQIxJg8ZSAGUfGqvErpc/fj/7v6CsC0=
-::eg0/rx1wNQPfEVWB+kM9LVsJDAWMKCa+A6NR++336f+XpkwJUaw9eZu7
-::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
-::cRolqwZ3JBvQF1fEqQJQ
+::ZQ05rAF9IAHYFVzEqQIxJg8ZSAGUXA==
+::eg0/rx1wNQPfEVWB+kM9LVsJDAWMKCW4B6F8
+::fBEirQZwNQPfEVWB+kM9LVsJDAWMKCa+A6N8
+::cRolqwZ3JBvQF1fEqQIxJg8ZSAGUfG6iA7YJ/Ofpjw==
 ::dhA7uBVwLU+EWHiqwAIjPA5QRQvCLyWoSLpSiA==
 ::YQ03rBFzNR3SWATElA==
 ::dhAmsQZ3MwfNWATE2UMiPBJaDCaQJWiyErR8
@@ -38,10 +38,33 @@ IF /I [%TOOL%]==[] (SET TOOL=help)
 
 IF EXIST %~dp0ant-%TOOL%.bat (GOTO EXEC)
 
-:MISSING
 ECHO Tool "%TOOL%" does not exist!
 ECHO.
 SET TOOL=help
+GOTO EXEC
+
+IF /I NOT [%TOOL%]==[selfupdate] (GOTO CHECK_LAST_UPDATE) ELSE (GOTO EXEC)
+
+:CHECK_LAST_UPDATE
+IF NOT EXIST %userprofile%/.ant/.lastupdate (
+    ECHO Running update for the first time
+    CALL ant-selfupdate
+    GOTO EXEC
+) ELSE (GOTO ASK_FOR_UPDATE)
+
+:ASK_FOR_UPDATE
+SET WEEK_AGO=powershell -Command "[int][double]::Parse((Get-Date -UFormat %s))-604800"
+FOR /f "delims=" %%i IN ('more %userprofile%/.ant/.lastupdate') DO SET LAST_UPDATE=%%i
+IF %WEEK_AGO% GEQ %LAST_UPDATE% (
+        SET /P DOUPDATE=Ant-dev hasn't been updated for over a week, do you want to update? [y/n]
+        GOTO DOUPDATE
+) ELSE (GOTO EXEC)
+
+:DOUPDATE
+IF /I [%DOUPDATE%]==[y] (
+    CALL ant-seltpdate
+    GOTO EXEC
+)
 
 :EXEC
 FOR /F "tokens=2,* delims= " %%a in ("%*") do set PARAMS=%%b

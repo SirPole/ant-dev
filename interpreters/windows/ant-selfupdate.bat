@@ -15,3 +15,5 @@ docker pull -a sirpole/ant-dev
 docker pull mysql
 docker pull phpmyadmin/phpmyadmin
 docker system prune -f
+
+powershell -Command "[int][double]::Parse((Get-Date -UFormat %s))" > %userprofile%/.ant/.lastupdate
