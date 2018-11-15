@@ -26,6 +26,5 @@ echo     npm
 echo     npx
 echo     php
 echo     sass-lint
-echo     tldr
 echo.
 echo For more thorough information, visit repository wiki: https://github.com/SirPole/ant-dev/wiki
