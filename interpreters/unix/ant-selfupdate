@@ -11,11 +11,14 @@ fi
 
 cd ${DIR}/../..
 
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
 git fetch --all
-#git stash
+git stash save
 git checkout master --force
 git reset --hard origin/master
-#git stash apply
+git checkout ${BRANCH} --force
+git stash pop
 
 docker pull sirpole/ant-dev:chrome
 docker pull sirpole/ant-dev:httpd
