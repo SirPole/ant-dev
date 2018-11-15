@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ ! "$(docker ps -q -f name=database)" ]]; then
+    ant-up
+fi
+
+DB=$1
+PATH="."
+
+if [[ $2 != "" ]]; then
+    PATH="$2"
+fi
+
+exec docker exec \
+    --interactive \
+    --tty \
+    database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot ${DB} > ${PATH}/${DB}.sql
