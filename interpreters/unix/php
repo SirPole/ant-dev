@@ -2,6 +2,10 @@
 
 set -e
 
+if [[ $(ant-machine) == Windows ]]; then
+    exec php.bat $@
+fi
+
 if [[ ! "$(docker ps -q -f name=php)" ]]; then
     ant up
 fi

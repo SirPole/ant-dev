@@ -2,6 +2,10 @@
 
 set -e
 
+if [[ $(ant-machine) == Windows ]]; then
+    exec composer.bat $@
+fi
+
 exec docker run \
   --rm \
   --interactive \
