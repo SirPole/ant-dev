@@ -18,8 +18,8 @@
 ::ZQ05rAF9IBncCkqN+0xwdVsFAlTMbCXqZg==
 ::ZQ05rAF9IAHYFVzEqQIxJg8ZSAGUXA==
 ::eg0/rx1wNQPfEVWB+kM9LVsJDAWMKCW4B6F8
-::fBEirQZwNQPfEVWB+kM9LVsJDAWMKCa+A6N8
-::cRolqwZ3JBvQF1fEqQIxJg8ZSAGUfG6iA7YJ/Ofpjw==
+::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
+::cRolqwZ3JBvQF1fEqQIxJg8ZSAGUfHf6J5soqPvv+u6OrQ05UfQ6dIDL17GANKA25FPtZ5kj239UjKs=
 ::dhA7uBVwLU+EWHiqwAIjPA5QRQvCLyWoSLpSiA==
 ::YQ03rBFzNR3SWATElA==
 ::dhAmsQZ3MwfNWATE2UMiPBJaDCaQJWiyErR8
@@ -36,25 +36,25 @@
 SET TOOL=%1
 IF /I [%TOOL%]==[] (SET TOOL=help)
 
-IF EXIST %~dp0ant-%TOOL%.bat (GOTO EXEC)
+IF EXIST %~dp0ant-%TOOL%.bat (GOTO CHECK_LAST_UPDATE)
 
 ECHO Tool "%TOOL%" does not exist!
 ECHO.
 SET TOOL=help
-GOTO EXEC
+GOTO CHECK_LAST_UPDATE
 
 IF /I NOT [%TOOL%]==[selfupdate] (GOTO CHECK_LAST_UPDATE) ELSE (GOTO EXEC)
 
 :CHECK_LAST_UPDATE
-IF NOT EXIST %userprofile%/.ant/.lastupdate (
+IF NOT EXIST %userprofile%\.ant\.lastupdate (
     ECHO Running update for the first time
-    CALL ant-selfupdate
-    GOTO EXEC
+    SET DOUPDATE=y
+    GOTO DOUPDATE
 ) ELSE (GOTO ASK_FOR_UPDATE)
 
 :ASK_FOR_UPDATE
-SET WEEK_AGO=powershell -Command "[int][double]::Parse((Get-Date -UFormat %s))-604800"
-FOR /f "delims=" %%i IN ('more %userprofile%/.ant/.lastupdate') DO SET LAST_UPDATE=%%i
+FOR /f "delims=" %%i IN ('powershell -Command "[int][double]::Parse((Get-Date -UFormat %%s))-604800"') DO SET WEEK_AGO=%%i
+FOR /f "delims=" %%i IN ('more %userprofile%\.ant\.lastupdate') DO SET LAST_UPDATE=%%i
 IF %WEEK_AGO% GEQ %LAST_UPDATE% (
         SET /P DOUPDATE=Ant-dev hasn't been updated for over a week, do you want to update? [y/n]
         GOTO DOUPDATE
@@ -62,7 +62,7 @@ IF %WEEK_AGO% GEQ %LAST_UPDATE% (
 
 :DOUPDATE
 IF /I [%DOUPDATE%]==[y] (
-    CALL ant-seltpdate
+    CALL ant-selfupdate
     GOTO EXEC
 )
 
