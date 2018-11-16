@@ -7,8 +7,6 @@ services:
     restart: always
     volumes:
     - .:/usr/local/apache2/htdocs/
-    environment:
-    - NETTE_DEBUG=1
     ports:
     - 80:80
     - 443:443
@@ -19,6 +17,8 @@ services:
     restart: always
     volumes:
     - .:/var/www/html
+    environment:
+    - NETTE_DEBUG=1
     ports:
     - 9000:9000
 
