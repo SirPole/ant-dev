@@ -1,8 +1,5 @@
 @echo off
 
-SCHTASKS /Query /tn "Update ant-dev" >nul 2>&1
-IF errorlevel 1 (SCHTASKS /Create /tn "Update ant-dev" /tr "PowerShell -WindowStyle Hidden -Command %~dp0ant.exe selfupdate" /sc daily /st 10:00:00)
-
 FOR /f %%i IN ('docker ps -q -f name=httpd') DO SET IS_RUNNING=%%i
 IF /I [%IS_RUNNING%]==[] (GOTO STOPPED) ELSE (GOTO RUNNING)
 

@@ -2,12 +2,6 @@
 
 set -e
 
-RET=0
-crontab -l 2>/dev/null | grep -q 'ant selfupdate' >/dev/null 2>&1 || RET=$?
-if [[ $RET != 0 ]]; then
-    (crontab -l 2>/dev/null; echo " 0 10 * * * $(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/ant selfupdate") | crontab -
-fi
-
 if [[ "$(docker ps -q -f name=httpd)" ]]; then
     if [[ $(cat ~/.ant/.ant-dev-lock) != $(pwd) ]]; then
         echo -e "Warning! Current containers were created from different directory."
