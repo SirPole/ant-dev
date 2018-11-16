@@ -1,14 +1,14 @@
 @echo off
 
-FOR /f %%i IN ('docker ps -q -f name=database') DO SET IS_RUNNING=%%i
+FOR /f %%i IN ('docker ps -q -f name^=database') DO SET IS_RUNNING=%%i
 IF /I [%IS_RUNNING%]==[] (CALL ant-up)
 
+
 SET DB=%1
-SET PATH=.
+SET RESULT_PATH=%cd%
 
-IF /I NOT "%~2"=="" (SET PATH=%2)
+IF /I NOT "%~2"=="" (SET RESULT_PATH=%2)
 
-docker exec \
---interactive \
---tty \
-database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot %DB% > %PATH%\%DB%.sql
+docker exec ^
+--interactive ^
+database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot %DB%> %RESULT_PATH%\%DB%.sql

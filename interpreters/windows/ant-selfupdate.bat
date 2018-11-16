@@ -3,7 +3,7 @@
 SCHTASKS /Query /tn "Update ant-dev"
 IF errorlevel 1 (SCHTASKS /Create /tn "Update ant-dev" /tr "PowerShell -WindowStyle Hidden -Command %~dp0ant.exe selfupdate" /sc daily /st 10:00:00)
 
-CD /D %~dp0/../..
+CD /D %~dp0..\..
 
 FOR /f %%i IN ('git rev-parse --abbrev-ref HEAD') DO SET BRANCH=%%i
 
@@ -27,4 +27,4 @@ docker pull node:8-alpine
 docker pull composer
 docker system prune -f
 
-powershell -Command "[int][double]::Parse((Get-Date -UFormat %s))" > %userprofile%/.ant/.lastupdate
+powershell -Command "[int][double]::Parse((Get-Date -UFormat %%s))" > %userprofile%\.ant\.lastupdate
