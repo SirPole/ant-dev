@@ -11,6 +11,8 @@ echo         Usage: ant export [database] (path to target directory, defaults to
 echo     help       - Show this help
 echo     import     - Import database from SQL dump to existing or newly created database
 echo         Usage: ant import (database) [path to sql file]
+echo     init       - Initialize docker-compose.yml in current directory, can switch php version, 7.2 is default
+echo         Usage: ant init (5.6/7.1)
 echo     migrate    - Migrate database using doctrine
 echo     selfupdate - Update ant-dev
 echo     start      - Alias for 'up'
