@@ -4,6 +4,6 @@ set -e
 
 if [[ -f ~/.ant/.ant-dev-lock ]]; then
     cd $(cat ~/.ant/.ant-dev-lock)
-    docker-compose down >/dev/null 2>&1
+    docker-compose down --remove-orphans
     rm -f ~/.ant/.ant-dev-lock
 fi
