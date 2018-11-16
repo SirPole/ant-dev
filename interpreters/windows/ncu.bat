@@ -5,7 +5,5 @@ docker run ^
 --interactive ^
 --name node ^
 --volume %cd%:/app ^
---workdir /app ^
 --volume %userprofile%\.ant\npm:/tmp ^
---env npm_config_cache=/tmp ^
-node:8-alpine npx npm-check-updates --loglevel verbose --packageFile package.json %*
+sirpole/ant-dev:node npm-check-updates --loglevel verbose --packageFile package.json %*

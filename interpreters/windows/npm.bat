@@ -5,7 +5,5 @@ docker run ^
 --interactive ^
 --name node ^
 --volume %cd%:/app ^
---workdir /app ^
 --volume %userprofile%\.ant\npm:/tmp ^
---env npm_config_cache=/tmp ^
-node:8-alpine npm %*
+sirpole/ant-dev:node npm %*

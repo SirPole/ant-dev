@@ -9,7 +9,5 @@ exec docker run \
   --user $(id -u):$(id -g) \
   --name node \
   --volume $(pwd):/app \
-  --workdir /app \
   --volume ~/.ant/npm:/tmp \
-  --env npm_config_cache=/tmp \
-  node:8-alpine npx ncu "$@"
+  sirpole/ant-dev:node ncu "$@"

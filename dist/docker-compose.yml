@@ -69,25 +69,4 @@ services:
     image: sirpole/ant-dev:chrome
     restart: always
     ports:
-      - 9222:9222
-
-#  node:
-#    container_name: node
-#    image: node:8-alpine
-#    volumes:
-#    - .:/home/node/app
-#    - ~/.ant/npm:/root/.npm
-#    environment:
-#    - NPM_CONFIG_USER=0
-#    - NPM_CONFIG_UNSAFE-PERM=true
-#    ports:
-#    - 3000:3000
-#    - 3001:3001
-#    - 3002:3002
-#
-#  composer:
-#    container_name: composer
-#    image: composer
-#    volumes:
-#    - .:/app
-#    - ~/.ant/composer:/tmp
+    - 9222:9222
