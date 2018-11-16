@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+exec docker run \
+  --rm \
+  --interactive \
+  --tty \
+  --user $(id -u):$(id -g) \
+  --name node \
+  --volume $(pwd):/app \
+  --volume ~/.ant/npm:/tmp \
+  sirpole/ant-dev:node tldr "$@"
