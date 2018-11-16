@@ -14,4 +14,4 @@ exec docker run \
   --name composer \
   --volume $(pwd):/app \
   --volume ~/.ant/composer:/tmp \
-  composer "$@"
+  composer --ignore-platform-reqs "$@"

@@ -7,4 +7,4 @@ winpty docker run ^
 --name composer ^
 --volume %cd%:/app ^
 --volume %userprofile%\.ant\composer:/tmp ^
-composer %*
+composer --ignore-platform-reqs %*
