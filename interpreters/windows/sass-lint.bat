@@ -5,7 +5,5 @@ docker run ^
 --interactive ^
 --name node ^
 --volume %cd%:/app ^
---workdir /app ^
 --volume %userprofile%\.ant\npm:/tmp ^
---env npm_config_cache=/tmp ^
-node:8-alpine npx sass-lint %*
+sirpole/ant-dev:node sass-lint %*
