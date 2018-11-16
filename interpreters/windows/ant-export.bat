@@ -9,6 +9,7 @@ SET RESULT_PATH=%cd%
 
 IF /I NOT "%~2"=="" (SET RESULT_PATH=%2)
 
-docker exec ^
+winpty docker exec ^
 --interactive ^
+--tty ^
 database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot %DB%> %RESULT_PATH%\%DB%.sql
