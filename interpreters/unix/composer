@@ -12,6 +12,7 @@ exec docker run \
   --tty \
   --user $(id -u):$(id -g) \
   --name composer \
+  --network ant-dev \
   --volume $(pwd):/app \
   --volume ~/.ant/composer:/tmp \
   composer --ignore-platform-reqs "$@"

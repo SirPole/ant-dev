@@ -1,4 +1,8 @@
-version: "3.4"
+version: "3.5"
+
+networks:
+  ant-dev:
+    name: ant-dev
 
 services:
   httpd:
@@ -10,6 +14,10 @@ services:
     ports:
     - 80:80
     - 443:443
+    networks:
+      ant-dev:
+        aliases:
+        - www.httpd
 
   php:
     container_name: php
@@ -19,8 +27,8 @@ services:
     - .:/var/www/html
     environment:
     - NETTE_DEBUG=1
-    ports:
-    - 9000:9000
+    networks:
+    - ant-dev
 
   database:
     container_name: database
@@ -31,6 +39,8 @@ services:
     - ~/.ant/mysql:/var/lib/mysql
     environment:
     - MYSQL_ROOT_PASSWORD=root
+    networks:
+    - ant-dev
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -42,6 +52,8 @@ services:
     - PMA_PASSWORD=root
     ports:
     - 8080:80
+    networks:
+    - ant-dev
 
   redis:
     container_name: redis
@@ -51,6 +63,8 @@ services:
     - ~/.ant/redis:/data
     ports:
     - 6379:6379
+    networks:
+    - ant-dev
 
   phpredisadmin:
     container_name: phpredisadmin
@@ -63,6 +77,8 @@ services:
     - REDIS_1_PORT=6379
     ports:
     - 8181:80
+    networks:
+    - ant-dev
 
   chrome:
     container_name: chrome
@@ -70,3 +86,5 @@ services:
     restart: always
     ports:
     - 9222:9222
+    networks:
+    - ant-dev
