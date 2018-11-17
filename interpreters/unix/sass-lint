@@ -12,6 +12,7 @@ exec docker run \
   --tty \
   --user $(id -u):$(id -g) \
   --name node \
+  --network ant-dev \
   --volume $(pwd):/app \
   --volume ~/.ant/npm:/tmp \
   sirpole/ant-dev:node sass-lint "$@"
