@@ -2,15 +2,13 @@ FROM httpd:2.4.35-alpine
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
-# Include apache virtual hosts, modules, startup script and stunnel
+# Include apache virtual hosts, modules and startup script
 COPY etc/httpd-extra.conf /usr/local/apache2/conf/extra/
 COPY etc/startup /usr/local/bin/
-COPY etc/stunnel.conf /etc/stunnel/
 
 # Enable apache mods, ssl host and startup script
 RUN apk add --no-cache \
         openssl \
-        stunnel \
     && openssl genrsa -des3 -out server.key -passout pass:pass 2048 \
     && openssl rsa -in server.key -out server.key.insecure -passin pass:pass \
     && mv server.key server.key.secure \
@@ -34,6 +32,6 @@ RUN apk add --no-cache \
         /usr/local/apache2/conf/httpd.conf \
     && echo "Include conf/extra/httpd-extra.conf" >> /usr/local/apache2/conf/httpd.conf
 
-WORKDIR /usr/local/apache2/htdocs
+WORKDIR /var/www/html
 ENTRYPOINT ["/usr/local/bin/startup"]
 CMD [""]

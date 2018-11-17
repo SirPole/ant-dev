@@ -6,7 +6,7 @@ services:
     image: sirpole/ant-dev:httpd
     restart: always
     volumes:
-    - .:/usr/local/apache2/htdocs/
+    - .:/var/www/html
     ports:
     - 80:80
     - 443:443

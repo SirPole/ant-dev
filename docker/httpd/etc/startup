@@ -17,5 +17,4 @@ su ${USER} -c "mkdir -p log"
 : > log/apache.error.log
 : > log/php.error.log
 
-stunnel
 exec httpd-foreground
