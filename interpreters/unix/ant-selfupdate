@@ -13,12 +13,12 @@ cd ${DIR}/../..
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-git fetch --all
-git stash save
-git checkout master --force
-git reset --hard origin/master
-git checkout ${BRANCH} --force
-git stash pop
+#git fetch --all
+#git stash save
+#git checkout master --force
+#git reset --hard origin/master
+#git checkout ${BRANCH} --force
+#git stash pop
 
 docker pull sirpole/ant-dev:chrome
 docker pull sirpole/ant-dev:httpd
@@ -33,6 +33,6 @@ docker pull erikdubbelboer/phpredisadmin
 docker pull composer
 docker system prune -f
 
-$(date '+%s') > ~/.ant/.ant-dev-lastupdate
+date '+%s' > ~/.ant/.lastupdate
 
 exit

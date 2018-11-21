@@ -7,13 +7,11 @@ if [[ ! "$(docker ps -q -f name=database)" ]]; then
 fi
 
 DB=$1
-PATH="."
+RESULT_PATH="."
 
 if [[ $2 != "" ]]; then
-    PATH="$2"
+    RESULT_PATH="$2"
 fi
 
 exec docker exec \
-    --interactive \
-    --tty \
-    database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot ${DB} > ${PATH}/${DB}.sql
+    database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot ${DB} > ${RESULT_PATH}/${DB}.sql

@@ -12,7 +12,7 @@ if [[ "${TOOL}" != "selfupdate" ]]; then
     if [[ ! -f ~/.ant/.lastupdate ]]; then
         echo "Running update for the first time."
         ant-selfupdate
-    elif [[ $(date '+%s' --date='-7 days') >= $(cat ~/.ant/.ant-dev-lastupdate) ]]; then
+    elif [[ $(date '+%s' --date='-7 days') -ge $(cat ~/.ant/.lastupdate) ]]; then
         echo "Ant-dev hasn't been updated for over a week, do you want to update? [y/n] "
         read -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then

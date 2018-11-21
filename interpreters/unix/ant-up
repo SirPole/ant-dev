@@ -3,13 +3,17 @@
 set -e
 
 if [[ "$(docker ps -q -f name=httpd)" ]]; then
-    if [[ $(cat ~/.ant/.ant-dev-lock) != $(pwd) ]]; then
+    if [[ $(cat ~/.ant/.ant-dev-lock) == $(pwd) ]]; then
+        echo -e "Containers are already running in this directory."
+    else
         echo -e "Warning! Current containers were created from different directory."
         if [[ -f "docker-compose.yml" ]]; then
             echo -e "Found docker-compose.yml in current directory. Will destroy old containers and create new ones."
             ant-down
             docker-compose up -d
             $(pwd) > ~/.ant/.ant-dev-lock
+        else
+            echo -e "No docker-compose.yml file in current directory. Please run 'ant init' to create one."
         fi
     fi
 else
@@ -18,5 +22,5 @@ else
         ant-down
     fi
     docker-compose up -d
-    $(pwd) > ~/.ant/.ant-dev-lock
+    pwd > ~/.ant/.ant-dev-lock
 fi
