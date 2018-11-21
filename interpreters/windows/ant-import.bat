@@ -8,13 +8,10 @@ SET FILE=%1
 IF /I NOT "%~2"=="" (
 	SET DB=%1
 	SET FILE=%2
-	winpty docker exec ^
-	--interactive ^
-	--tty ^
+	docker exec ^
 	database mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS %1"
 )
 
-winpty docker exec ^
+docker exec ^
 --interactive ^
---tty ^
 database mysql -uroot -proot %DB% < %FILE%
