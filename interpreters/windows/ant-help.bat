@@ -19,6 +19,7 @@ echo     selfupdate - Update ant-dev
 echo     start      - Alias for 'up'
 echo     stop       - Alias for 'down'
 echo     up         - Start containers if they're not running already
+echo     version    - Shows versions of all key services
 echo.
 echo Other standalone interpreters, these are not prefixed by ant command:
 echo     composer
