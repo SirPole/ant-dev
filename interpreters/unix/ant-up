@@ -11,7 +11,7 @@ if [[ "$(docker ps -q -f name=httpd)" ]]; then
             echo -e "Found docker-compose.yml in current directory. Will destroy old containers and create new ones."
             ant-down
             docker-compose up -d
-            $(pwd) > ~/.ant/.ant-dev-lock
+            pwd > ~/.ant/.ant-dev-lock
         else
             echo -e "No docker-compose.yml file in current directory. Please run 'ant init' to create one."
         fi
