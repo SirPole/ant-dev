@@ -10,25 +10,23 @@ services:
     image: sirpole/ant-dev:httpd
     restart: always
     volumes:
-    - .:/var/www/html
+      - .:/var/www/html
     ports:
-    - 80:80
-    - 443:443
+      - 80:80
+      - 443:443
     networks:
-      ant-dev:
-        aliases:
-        - www.httpd
+      - ant-dev
 
   php:
     container_name: php
     image: sirpole/ant-dev:php-7.2
     restart: always
     volumes:
-    - .:/var/www/html
+      - .:/var/www/html
     environment:
-    - NETTE_DEBUG=1
+      - NETTE_DEBUG=1
     networks:
-    - ant-dev
+      - ant-dev
 
   database:
     container_name: database
@@ -36,55 +34,54 @@ services:
     restart: always
     command: --innodb_data_file_path=ibdata1:100M:autoextend --sql-mode="" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password --innodb-page-size=65536
     volumes:
-    - ~/.ant/mysql:/var/lib/mysql
+      - ~/.ant/mysql:/var/lib/mysql
     environment:
-    - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     networks:
-    - ant-dev
+      - ant-dev
 
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     restart: always
     environment:
-    - PMA_HOST=database
-    - PMA_USER=root
-    - PMA_PASSWORD=root
+      - PMA_HOST=database
+      - PMA_USER=root
     ports:
-    - 8080:80
+      - 8080:80
     networks:
-    - ant-dev
+      - ant-dev
 
   redis:
     container_name: redis
     image: redis:alpine
     restart: always
     volumes:
-    - ~/.ant/redis:/data
+      - ~/.ant/redis:/data
     ports:
-    - 6379:6379
+      - 6379:6379
     networks:
-    - ant-dev
+      - ant-dev
 
   phpredisadmin:
     container_name: phpredisadmin
     image: erikdubbelboer/phpredisadmin
     restart: always
     environment:
-    - ADMIN_USER=root
-    - ADMIN_PASS=root
-    - REDIS_1_HOST=redis
-    - REDIS_1_PORT=6379
+      - ADMIN_USER=root
+      - ADMIN_PASS=root
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
     ports:
-    - 8181:80
+      - 8181:80
     networks:
-    - ant-dev
+      - ant-dev
 
   chrome:
     container_name: chrome
     image: sirpole/ant-dev:chrome
     restart: always
     ports:
-    - 9222:9222
+      - 9222:9222
     networks:
-    - ant-dev
+      - ant-dev
