@@ -11,7 +11,6 @@ exec docker run \
   --interactive \
   --tty \
   --user $(id -u):$(id -g) \
-  --name node \
   --network ant-dev \
   --volume $(pwd):/app \
   --volume ~/.ant/npm:/tmp \
