@@ -14,4 +14,4 @@ if [[ $2 != "" ]]; then
 fi
 
 exec docker exec \
-    database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot -proot ${DB} > ${RESULT_PATH}/${DB}.sql
+    database mysqldump --add-drop-table --add-locks --compact --disable-keys --extended-insert --insert-ignore --no-create-db -uroot ${DB} > ${RESULT_PATH}/${DB}.sql
