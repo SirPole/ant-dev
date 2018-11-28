@@ -8,10 +8,12 @@ WORKDIR /app
 
 RUN apk add --no-cache \
         git \
+        python \
         tar \
-    && npm i -g \
+    && npm i -g --unsafe-perm\
         concurrently \
         del-cli \
+        node-sass \
         npm@latest \
         npm-check-updates \
         sass-lint \
