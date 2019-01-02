@@ -6,12 +6,21 @@ if [[ $(ant-machine) == Windows ]]; then
     exec sass-lint.bat $@
 fi
 
-exec docker run \
-  --rm \
-  --interactive \
-  --tty \
-  --user $(id -u):$(id -g) \
-  --network ant-dev \
-  --volume $(pwd):/app \
-  --volume ~/.ant/npm:/tmp \
-  sirpole/ant-dev:node sass-lint "$@"
+if [[ "$(docker ps -q -f name=node)" ]]; then
+    exec docker exec \
+        --interactive \
+        --tty \
+        node sass-lint "$@"
+else
+    exec docker run \
+        --rm \
+        --interactive \
+        --tty \
+        --user $(id -u):$(id -g) \
+        --name node \
+        --network ant-dev \
+        --publish 3000:3000 \
+        --volume $(pwd):/app \
+        --volume ~/.ant/npm:/tmp \
+        sirpole/ant-dev:node sass-lint "$@"
+fi
