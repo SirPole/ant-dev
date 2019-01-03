@@ -13,6 +13,9 @@ trap "docker stop ${APACHE_ID}" 0 1 2 3 9 15
 APACHE=$(docker exec ${APACHE_ID} httpd -v | grep -Eom 1 '[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}')
 echo "Apache:         ${APACHE}"
 
+PHP73=$(docker run --rm sirpole/ant-dev:php-7.3 php -v | grep -Eom 1 '[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}')
+echo "PHP 7.3:        ${PHP73}"
+
 PHP72=$(docker run --rm sirpole/ant-dev:php-7.2 php -v | grep -Eom 1 '[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}')
 echo "PHP 7.2:        ${PHP72}"
 

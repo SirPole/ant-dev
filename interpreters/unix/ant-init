@@ -6,5 +6,5 @@ cp "$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/../../dist/docker-compose.yml"
 
 if [[ $1 != "" ]]; then
     sed -i \
-        -e "s/7.2/$1/"
+        -e "s/7.3/$1/"
 fi
