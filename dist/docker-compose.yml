@@ -19,7 +19,7 @@ services:
 
   php:
     container_name: php
-    image: sirpole/ant-dev:php-7.2
+    image: sirpole/ant-dev:php-7.3
     restart: always
     volumes:
       - .:/var/www/html

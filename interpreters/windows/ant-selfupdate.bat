@@ -17,6 +17,7 @@ git stash pop
 docker pull sirpole/ant-dev:chrome
 docker pull sirpole/ant-dev:httpd
 docker pull sirpole/ant-dev:node
+docker pull sirpole/ant-dev:php-7.3
 docker pull sirpole/ant-dev:php-7.2
 docker pull sirpole/ant-dev:php-7.1
 docker pull sirpole/ant-dev:php-5.6
