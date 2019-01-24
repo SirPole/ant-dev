@@ -9,3 +9,4 @@ docker build --no-cache -t sirpole/ant-dev:php-7.3 php/7.3
 docker build --no-cache -t sirpole/ant-dev:php-7.2 php/7.2
 docker build --no-cache -t sirpole/ant-dev:php-7.1 php/7.1
 docker build --no-cache -t sirpole/ant-dev:php-5.6 php/5.6
+docker build --no-cache -t sirpole/ant-dev:docker docker
