@@ -5,5 +5,4 @@ IF /I [%IS_RUNNING%]==[] (CALL ant up)
 
 winpty docker exec ^
 --interactive ^
---tty ^
-database mysql -uroot %*
+database mysql %*

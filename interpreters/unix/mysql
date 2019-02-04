@@ -12,5 +12,4 @@ fi
 
 exec docker exec \
     --interactive \
-    --tty \
-    database mysql -uroot "$@"
+    database mysql "$@"
