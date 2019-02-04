@@ -3,6 +3,7 @@ FROM node:8-alpine
 MAINTAINER Martin Brychta <martin@brychta.name>
 
 ENV npm_cache_dir=/tmp
+ENV DOCKER_ENV=1
 
 WORKDIR /app
 
