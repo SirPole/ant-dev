@@ -9,7 +9,7 @@ Docker environment for running antcms
 
 &nbsp;
 
-Comes bundled with [Apache](https://httpd.apache.org/), [php](https://secure.php.net/), [MySQL](https://www.mysql.com/), [phpMyAdmin](https://www.phpmyadmin.net/), [Composer](https://getcomposer.org/) and [Node.js](https://nodejs.org/).
+Comes bundled with [nginx](https://nginx.org/), [php](https://secure.php.net/), [MySQL](https://www.mysql.com/), [phpMyAdmin](https://www.phpmyadmin.net/), [Composer](https://getcomposer.org/) and [Node.js](https://nodejs.org/).
 
 # Disclaimer
 This repository and docker image are used solely for local development at my company with specific use case. Although this environment might work for your use case as well, I can't provide warranty of any sorts for you.

@@ -6,7 +6,7 @@ if [[ $(ant-machine) == Windows ]]; then
     exec npx.bat $@
 fi
 
-if [[ "$(docker ps -q -f name=httpd)" ]]; then
+if [[ "$(docker ps -q -f name=node)" ]]; then
     exec docker exec \
         --interactive \
         --tty \

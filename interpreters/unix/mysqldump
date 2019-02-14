@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ $(ant-machine) == Windows ]]; then
+    exec mysqldump.bat $@
+fi
+
+if [[ ! "$(docker ps -q -f name=database)" ]]; then
+    ant up
+fi
+
+exec docker exec \
+    --interactive \
+    database mysqldump "$@"

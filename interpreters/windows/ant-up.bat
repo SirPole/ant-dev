@@ -1,6 +1,6 @@
 @echo off
 
-FOR /f %%i IN ('docker ps -q -f name^=httpd') DO SET IS_RUNNING=%%i
+FOR /f %%i IN ('docker ps -q -f name^=nginx') DO SET IS_RUNNING=%%i
 SET CURRENT_PATH=%cd%
 IF /I [%IS_RUNNING%]==[] (GOTO STOPPED) ELSE (GOTO RUNNING)
 
@@ -15,7 +15,7 @@ IF /I [%CONTAINER_PATH%]==[%CURRENT_PATH%] (
 )
 
 :STOPPED
-FOR /f %%i IN ('docker ps -aq -f status^=exited -f name^=httpd') DO SET IS_EXITED=%%i
+FOR /f %%i IN ('docker ps -aq -f status^=exited -f name^=nginx') DO SET IS_EXITED=%%i
 IF /I NOT [%IS_EXITED%]==[] (GOTO RESTART) ELSE (GOTO START)
 
 :SHOULD_RESTART

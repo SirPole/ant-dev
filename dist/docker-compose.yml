@@ -5,9 +5,9 @@ networks:
     name: ant-dev
 
 services:
-  httpd:
-    container_name: httpd
-    image: sirpole/ant-dev:httpd
+  nginx:
+    container_name: nginx
+    image: sirpole/ant-dev:nginx
     restart: always
     volumes:
       - .:/var/www/html

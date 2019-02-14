@@ -4,7 +4,7 @@ FOR /f %%i IN ('docker ps -q -f name^=node') DO SET IS_RUNNING=%%i
 IF /I [%IS_RUNNING%]==[] (GOTO START) ELSE (GOTO CONNECT)
 
 :START
-winpty docker run ^
+docker run ^
     --rm ^
     --interactive ^
     --tty ^
@@ -17,7 +17,7 @@ winpty docker run ^
 GOTO :EOF
 
 :CONNECT
-winpty docker exec ^
+docker exec ^
     --interactive ^
     --tty ^
     node tldr %*
