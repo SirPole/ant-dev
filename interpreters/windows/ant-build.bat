@@ -4,6 +4,7 @@ CD /D %~dp0..\..\docker
 
 docker build --no-cache -t sirpole/ant-dev:chrome chrome
 docker build --no-cache -t sirpole/ant-dev:httpd httpd
+docker build --no-cache -t sirpole/ant-dev:nginx nginx
 docker build --no-cache -t sirpole/ant-dev:node node
 docker build --no-cache -t sirpole/ant-dev:php-7.3 php/7.3
 docker build --no-cache -t sirpole/ant-dev:php-7.2 php/7.2

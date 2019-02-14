@@ -5,4 +5,4 @@ IF /I [%IS_RUNNING%]==[] (CALL ant up)
 
 docker exec ^
     --interactive ^
-    database mysql %*
+    database mysqldump %*
