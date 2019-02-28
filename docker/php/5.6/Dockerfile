@@ -14,6 +14,11 @@ RUN apk add --no-cache \
         libxml2-dev \
         libzip-dev \
     && apk add gnu-libiconv --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
+    && curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/4.2.0.tar.gz \
+    && tar xfz /tmp/redis.tar.gz \
+    && rm -r /tmp/redis.tar.gz \
+    && mkdir -p /usr/src/php/ext \
+    && mv phpredis-4.2.0 /usr/src/php/ext/redis \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) \
@@ -23,11 +28,9 @@ RUN apk add --no-cache \
         mysql \
         mysqli \
         pdo_mysql \
+        redis \
         soap \
         zip \
-    && pecl install -o -f redis \
-    && rm -rf /tmp/pear \
-    && docker-php-ext-enable redis \
     && sed -i \
         -e 's/^\(;\|\)\(pm.max_children =\).*/\2 128/' \
         -e 's/^\(;\|\)\(pm.start_servers =\).*/\2 16/' \
