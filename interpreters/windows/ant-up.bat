@@ -33,5 +33,7 @@ CALL ant-down
 cd %CURRENT_PATH%
 
 :START
+(ECHO %CURRENT_PATH% ^> /projectData && ECHO %userprofile%\.ant\mysql ^> /mysqlData) > %userprofile%\.ant\.ant-dev-nfs-exports
+START /MIN /I winnfsd.exe -log off -pathFile %userprofile%\.ant\.ant-dev-nfs-exports
 docker-compose up -d --no-color
 echo %CURRENT_PATH%> %userprofile%\.ant\.ant-dev-lock
