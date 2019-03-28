@@ -22,9 +22,7 @@ docker pull sirpole/ant-dev:php-7.2
 docker pull sirpole/ant-dev:php-7.1
 docker pull sirpole/ant-dev:php-5.6
 docker pull mysql
-docker pull phpmyadmin/phpmyadmin
 docker pull redis:alpine
-docker pull erikdubbelboer/phpredisadmin
 docker pull composer
 docker system prune -f
 
