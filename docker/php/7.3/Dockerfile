@@ -12,7 +12,7 @@ RUN apk add --no-cache \
         libpng-dev \
         libxml2-dev \
         libzip-dev \
-    && apk add gnu-libiconv --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
+    && apk add gnu-libiconv --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
     && curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/4.2.0.tar.gz \
     && tar xfz /tmp/redis.tar.gz \
     && rm -r /tmp/redis.tar.gz \

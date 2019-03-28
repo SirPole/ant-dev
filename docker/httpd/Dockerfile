@@ -1,4 +1,4 @@
-FROM httpd:2.4.35-alpine
+FROM httpd:alpine
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
@@ -9,14 +9,8 @@ COPY etc/startup /usr/local/bin/
 # Enable apache mods, ssl host and startup script
 RUN apk add --no-cache \
         openssl \
-    && openssl genrsa -des3 -out server.key -passout pass:pass 2048 \
-    && openssl rsa -in server.key -out server.key.insecure -passin pass:pass \
-    && mv server.key server.key.secure \
-    && mv server.key.insecure server.key \
-    && openssl req -new -key server.key -out server.csr -subj "/C=CZ/ST=CZ/L=Pilsen/O=ANT studio s.r.o./OU=Development/CN=antstudio.cz" \
-    && openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt \
-    && cp server.crt /usr/local/apache2/conf \
-    && cp server.key /usr/local/apache2/conf \
+    && openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /usr/local/apache2/conf/key.pem -out /usr/local/apache2/conf/cert.pem -days 3650 \
+    && chmod 0400 /usr/local/apache2/conf/key.pem /usr/local/apache2/conf/cert.pem \
     && chmod +x /usr/local/bin/startup \
     && sed -i \
         -e 's/^#\(LoadModule .*mod_actions.so\)/\1/' \
