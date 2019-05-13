@@ -11,12 +11,6 @@ volumes:
       type: nfs
       o: addr=10.0.75.1,rw,nolock,hard,nointr,nfsvers=3,udp
       device: ":/projectData"
-  mysqlData:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=10.0.75.1,rw,nolock,hard,nointr,nfsvers=3,udp
-      device: ":/mysqlData"
 
 services:
   nginx:
@@ -48,7 +42,7 @@ services:
     restart: always
     command: --innodb_data_file_path=ibdata1:100M:autoextend --sql-mode="" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password --innodb-page-size=65536
     volumes:
-      - mysqlData:/var/lib/mysql
+      - ~/.ant/mysql:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
