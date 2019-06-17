@@ -4,68 +4,44 @@ networks:
   ant-dev:
     name: ant-dev
 
-volumes:
-  projectData:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=10.0.75.1,rw,nolock,hard,nointr,nfsvers=3,udp
-      device: ":/projectData"
-
 services:
-  nginx:
-    container_name: nginx
-    image: sirpole/ant-dev:nginx
-    restart: always
-    volumes:
-      - projectData:/var/www/html
-    ports:
-      - 80:80
-      - 443:443
+  httpd:
+    container_name: httpd
+    image: sirpole/ant-dev:httpd
+    environment:
+      - TZ=Europe/Prague
     networks:
       - ant-dev
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - .:/var/www/html
 
   php:
     container_name: php
-    image: sirpole/ant-dev:php-7.2
-    restart: always
-    volumes:
-      - projectData:/var/www/html
     environment:
+      - TZ=Europe/Prague
       - NETTE_DEBUG=1
+    image: sirpole/ant-dev:php-7.3
     networks:
       - ant-dev
+    restart: always
+    user: ${UID:-1000}:${GID:-1000}
+    volumes:
+      - .:/var/www/html
 
   database:
-    container_name: database
-    image: mysql
-    restart: always
     command: --innodb_data_file_path=ibdata1:100M:autoextend --sql-mode="" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password --innodb-page-size=65536
-    volumes:
-      - ~/.ant/mysql:/var/lib/mysql
+    container_name: database
+    environment:
+      - TZ=Europe/Prague
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    image: mysql
+    networks:
+      - ant-dev
     ports:
       - 3306:3306
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    networks:
-      - ant-dev
-
-  redis:
-    container_name: redis
-    image: redis:alpine
     restart: always
     volumes:
-      - ~/.ant/redis:/data
-    ports:
-      - 6379:6379
-    networks:
-      - ant-dev
-
-  chrome:
-    container_name: chrome
-    image: sirpole/ant-dev:chrome
-    restart: always
-    ports:
-      - 9222:9222
-    networks:
-      - ant-dev
+      - ~/.ant/mysql:/var/lib/mysql

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -e
+
+DIR="$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)"
+NETWORK=""
+PROGRAM=$1
+
+if [[ "$(docker network ls -q -f name=ant-dev)" ]]; then
+    NETWORK="--network ant-dev"
+fi
+
+if ls ${DIR} | grep ${PROGRAM} > /dev/null 2>&1; then
+    shift
+else
+    PROGRAM=node
+fi
+
+if [[ "$(docker ps -q -f name=node)" ]]; then
+    exec docker exec \
+        --interactive \
+        --tty \
+        --user $(id -u):$(id -g) \
+        node ${PROGRAM} "$@"
+else
+    exec docker run \
+        --rm \
+        --interactive \
+        --tty \
+        --user $(id -u):$(id -g) \
+        --name node \
+        ${NETWORK} \
+        --publish 3000:3000 \
+        --volume $(pwd):/app \
+        --volume ~/.ant/npm:/tmp/npm \
+        sirpole/ant-dev:node ${PROGRAM} "$@"
+fi

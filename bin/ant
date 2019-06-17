@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+TOOL=$1
+
+if [[ "${TOOL}" != "selfupdate" ]]; then
+    if [[ ! -f ~/.ant/.lastupdate ]]; then
+        echo "Running update for the first time."
+        ant-selfupdate
+    elif [[ $(date '+%s' --date='-7 days') -ge $(cat ~/.ant/.lastupdate) ]]; then
+        echo "Ant-dev hasn't been updated for over a week, do you want to update? [y/n] "
+        read -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            ant-selfupdate
+        fi
+    fi
+fi
+
+if [[ "${TOOL}" == "" ]]; then
+    TOOL=help
+else
+    shift
+fi
+
+if [[ ! -f "$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/ant-${TOOL}" ]]; then
+    echo "Tool '${TOOL}' does not exist!"
+    echo ""
+    TOOL=help
+fi
+
+exec ant-${TOOL} $@

@@ -2,19 +2,9 @@
 
 set -e
 
-USER=root
-if [[ $(stat -c "%u" .) != 0 ]]; then
-    (getent group ant || addgroup -g $(stat -c "%g" .) ant) \
-        && (getent passwd ant || adduser -D -s /bin/sh -u $(stat -c "%u" .) -G ant ant)
-    USER=ant
-    chown ${USER}:${USER} .
-    export APACHE_RUN_USER=${USER}
-    export APACHE_RUN_GROUP=${USER}
-fi
-
-su ${USER} -c "mkdir -p log"
+mkdir -p log
 : > log/apache.access.log
 : > log/apache.error.log
 : > log/php.error.log
 
-exec httpd-foreground
+exec $@

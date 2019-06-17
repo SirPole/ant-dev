@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ ! "$(docker ps -q -f name=php)" ]]; then
+    ant up
+fi
+
+exec docker exec \
+    --interactive \
+    --tty \
+    --user $(id -u):$(id -g) \
+    php php "$@"
