@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-exec docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}"

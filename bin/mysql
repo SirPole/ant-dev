@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ ! "$(docker ps -q -f name=database)" ]]; then
+    ant up
+fi
+
+exec docker exec \
+    --interactive \
+    database mysql "$@"

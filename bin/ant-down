@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -f ~/.ant/.ant-dev-lock ]]; then
+    cd $(cat ~/.ant/.ant-dev-lock)
+    docker-compose down --remove-orphans --volumes
+    rm -f ~/.ant/.ant-dev-lock
+fi

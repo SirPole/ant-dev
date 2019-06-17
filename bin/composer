@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+NETWORK=""
+
+if [[ "$(docker network ls -q -f name=ant-dev)" ]]; then
+    NETWORK="--network ant-dev"
+fi
+
+exec docker run \
+  --rm \
+  --interactive \
+  --tty \
+  --user $(id -u):$(id -g) \
+  --name composer \
+  ${NETWORK} \
+  --volume $(pwd):/app \
+  --volume ~/.ant/composer:/tmp \
+  composer --ignore-platform-reqs "$@"
