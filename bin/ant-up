@@ -2,6 +2,13 @@
 
 set -e
 
+start () {
+    mkdir -p log
+    : > log/apache.access.log > log/apache.error.log > log/php.error.log
+    docker-compose up -d
+    pwd > ~/.ant/.ant-dev-lock
+}
+
 if [[ "$(docker ps -q -f name=httpd)" ]]; then
     if [[ $(cat ~/.ant/.ant-dev-lock) == $(pwd) ]]; then
         echo -e "Containers are already running in this directory."
@@ -10,8 +17,7 @@ if [[ "$(docker ps -q -f name=httpd)" ]]; then
         if [[ -f "docker-compose.yml" ]]; then
             echo -e "Found docker-compose.yml in current directory. Will destroy old containers and create new ones."
             ant-down
-            docker-compose up -d
-            pwd > ~/.ant/.ant-dev-lock
+            start
         else
             echo -e "No docker-compose.yml file in current directory. Please run 'ant init' to create one."
         fi
@@ -21,6 +27,5 @@ else
         echo -e "Removing stopped containers"
         ant-down
     fi
-    docker-compose up -d
-    pwd > ~/.ant/.ant-dev-lock
+    start
 fi
