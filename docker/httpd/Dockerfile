@@ -2,13 +2,9 @@ FROM httpd:alpine
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
-# Include apache virtual hosts, modules and startup script
 COPY etc/httpd-extra.conf /usr/local/apache2/conf/extra/
-COPY etc/startup /usr/local/bin/
 
-# Enable apache mods, ssl host and startup script
-RUN chmod +x /usr/local/bin/startup \
-    && sed -i \
+RUN sed -i \
         -e 's/^#\(LoadModule .*mod_actions.so\)/\1/' \
         -e 's/^#\(LoadModule .*mod_deflate.so\)/\1/' \
         -e 's/^#\(LoadModule .*mod_expires.so\)/\1/' \
@@ -21,5 +17,3 @@ RUN chmod +x /usr/local/bin/startup \
     && echo "Include conf/extra/httpd-extra.conf" >> /usr/local/apache2/conf/httpd.conf
 
 WORKDIR /var/www/html
-ENTRYPOINT ["/usr/local/bin/startup"]
-CMD ["httpd-foreground"]
