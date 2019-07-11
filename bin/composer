@@ -3,9 +3,14 @@
 set -e
 
 NETWORK=""
+ARGS=""
 
 if [[ "$(docker network ls -q -f name=ant-dev)" ]]; then
     NETWORK="--network ant-dev"
+fi
+
+if [[ $1 == "install" ]]; then
+  ARGS="--ignore-platform-reqs"
 fi
 
 exec docker run \
@@ -17,4 +22,4 @@ exec docker run \
   ${NETWORK} \
   --volume $(pwd):/app \
   --volume ~/.ant/composer:/tmp \
-  composer --ignore-platform-reqs "$@"
+  composer ${ARGS} "$@"

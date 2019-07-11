@@ -2,20 +2,13 @@
 
 set -e
 
-DIR="$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)"
-RET=0
-crontab -l 2>/dev/null | grep -q 'ant selfupdate' >/dev/null 2>&1 || RET=$?
-if [[ ${RET} != 0 ]]; then
-    (crontab -l 2>/dev/null; echo " 0 10 * * * ${DIR}/ant selfupdate") | crontab -
-fi
-
 mkdir -p ~/.ant
 
-cd ${DIR}/..
+cd $(cd "$(echo "${BASH_SOURCE[0]%/*}")/.." && pwd)
 
-#git fetch --all
-#git checkout master --force
-#git reset --hard origin/master
+git fetch --all
+git checkout master --force
+git reset --hard origin/master
 
 docker pull sirpole/ant-dev:httpd
 docker pull sirpole/ant-dev:node
@@ -24,9 +17,8 @@ docker pull sirpole/ant-dev:php-7.2
 docker pull sirpole/ant-dev:php-7.1
 docker pull sirpole/ant-dev:php-5.6
 docker pull mysql
+docker pull phpmyadmin/phpmyadmin
 docker pull composer
-docker system prune -f
+docker system prune --force --volumes
 
 date '+%s' > ~/.ant/.lastupdate
-
-exit
