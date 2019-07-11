@@ -45,3 +45,16 @@ services:
     restart: always
     volumes:
       - ~/.ant/mysql:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    environment:
+      - TZ=Europe/Prague
+      - PMA_HOST=database
+      - PMA_USER=root
+    image: phpmyadmin/phpmyadmin
+    networks:
+      - ant-dev
+    ports:
+      - 8080:80
+    restart: always
