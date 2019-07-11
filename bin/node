@@ -33,6 +33,6 @@ else
         --publish 3000:3000 \
         --publish 9229:9229 \
         --volume $(pwd):/app \
-        --volume ~/.ant/npm:/tmp/npm \
+        --volume ~/.ant/npm:/tmp \
         sirpole/ant-dev:node ${PROGRAM} "$@"
 fi

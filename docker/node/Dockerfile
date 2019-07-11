@@ -2,7 +2,7 @@ FROM node:lts-slim
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
-ENV npm_cache_dir=/tmp/npm
+ENV npm_cache_dir=/tmp
 ENV DOCKER_ENV=1
 
 WORKDIR /app
