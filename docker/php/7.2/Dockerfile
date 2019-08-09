@@ -24,6 +24,7 @@ RUN apk add --no-cache \
         gd \
         intl \
         mysqli \
+        opcache \
         pdo_mysql \
         redis \
         soap \

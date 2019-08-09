@@ -27,6 +27,7 @@ RUN apk add --no-cache \
         mcrypt \
         mysql \
         mysqli \
+        opcache \
         pdo_mysql \
         redis \
         soap \
