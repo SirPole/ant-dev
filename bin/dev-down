@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -f ~/.dev/.lock ]]; then
+    cd $(cat ~/.dev/.lock)
+    docker-compose down --remove-orphans --volumes
+    rm -f ~/.dev/.lock
+fi

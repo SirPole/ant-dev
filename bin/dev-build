@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+DIR=$(cd "$(echo "${BASH_SOURCE[0]%/*}")/../docker" && pwd)
+
+docker build --no-cache -t sirpole/dev-httpd ${DIR}/httpd
+docker build --no-cache -t sirpole/dev-nginx ${DIR}/nginx
+docker build --no-cache -t sirpole/dev-node ${DIR}/node
+docker build --no-cache -t sirpole/dev-php:7.4 ${DIR}/php/7.4
+docker build --no-cache -t sirpole/dev-php:7.3 ${DIR}/php/7.3
+docker build --no-cache -t sirpole/dev-php:7.2 ${DIR}/php/7.2
+docker build --no-cache -t sirpole/dev-php:7.1 ${DIR}/php/7.1
+docker build --no-cache -t sirpole/dev-php:5.6 ${DIR}/php/5.6

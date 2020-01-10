@@ -5,8 +5,8 @@ set -e
 NETWORK=""
 ARGS=""
 
-if [[ "$(docker network ls -q -f name=ant-dev)" ]]; then
-    NETWORK="--network ant-dev"
+if [[ "$(docker network ls -q -f name=dev)" ]]; then
+    NETWORK="--network dev"
 fi
 
 if [[ $1 == "install" ]]; then
@@ -21,5 +21,5 @@ exec docker run \
   --name composer \
   ${NETWORK} \
   --volume $(pwd):/app \
-  --volume ~/.ant/composer:/tmp \
+  --volume ~/.dev/composer:/tmp \
   composer ${ARGS} "$@"

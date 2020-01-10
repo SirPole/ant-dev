@@ -1,20 +1,21 @@
-version: '3.5'
+version: '3.7'
 
 networks:
-  ant-dev:
-    name: ant-dev
+  dev:
+    name: dev
 
 services:
   httpd:
     container_name: httpd
-    image: sirpole/ant-dev:httpd
+    image: sirpole/dev-httpd:${DEV_HTTPD_VERSION:-latest}
     environment:
-      - TZ=Europe/Prague
+      - TZ
     networks:
-      - ant-dev
+      - dev
     ports:
       - 80:80
       - 443:443
+      - 8080:8080
     restart: always
     volumes:
       - .:/var/www/html
@@ -22,40 +23,44 @@ services:
   php:
     container_name: php
     environment:
-      - TZ=Europe/Prague
-      - NETTE_DEBUG=1
-    image: sirpole/ant-dev:php-7.4
+      - TZ
+      - NETTE_DEBUG
+    image: sirpole/dev-php:${DEV_PHP_VERSION:-7.4}
     networks:
-      - ant-dev
+      - dev
     restart: always
     user: ${UID:-1000}:${GID:-1000}
     volumes:
       - .:/var/www/html
 
   database:
-    command: --innodb_data_file_path=ibdata1:100M:autoextend --sql-mode="" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password --innodb-page-size=65536
+    command: |
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+      --innodb_data_file_path=ibdata1:100M:autoextend
+      --innodb-page-size=65536
+      --sql-mode=""
     container_name: database
     environment:
-      - TZ=Europe/Prague
+      - TZ
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    image: mysql
+    image: mysql:${DEV_MYSQL_VERSION:-8}
     networks:
-      - ant-dev
+      - dev
     ports:
       - 3306:3306
     restart: always
     volumes:
-      - ~/.ant/mysql:/var/lib/mysql
+      - ~/.dev/mysql:/var/lib/mysql
 
   phpmyadmin:
     container_name: phpmyadmin
     environment:
-      - TZ=Europe/Prague
+      - TZ
       - PMA_HOST=database
       - PMA_USER=root
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:${DEV_PHPMYADMIN_VERSION:-latest}
     networks:
-      - ant-dev
-    ports:
-      - 8080:80
+      - dev
     restart: always

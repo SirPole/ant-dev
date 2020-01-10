@@ -31,7 +31,7 @@ FROM nginx:1.17.0-alpine
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
-ENV HOST antcms.loc
+ENV HOST dev.loc
 
 COPY --from=builder /usr/src/nginx-${NGINX_VERSION}/objs/ngx_http_brotli_filter_module.so /etc/nginx/modules
 COPY --from=builder /usr/src/nginx-${NGINX_VERSION}/objs/ngx_http_brotli_static_module.so /etc/nginx/modules

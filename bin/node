@@ -6,8 +6,8 @@ DIR="$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)"
 NETWORK=""
 PROGRAM=$1
 
-if [[ "$(docker network ls -q -f name=ant-dev)" ]]; then
-    NETWORK="--network ant-dev"
+if [[ "$(docker network ls -q -f name=dev)" ]]; then
+    NETWORK="--network dev"
 fi
 
 if ls ${DIR} | grep ${PROGRAM} > /dev/null 2>&1; then
@@ -33,6 +33,6 @@ else
         --publish 3000:3000 \
         --publish 9229:9229 \
         --volume $(pwd):/app \
-        --volume ~/.ant/npm:/tmp \
-        sirpole/ant-dev:node ${PROGRAM} "$@"
+        --volume ~/.dev/npm:/tmp \
+        sirpole/dev-node ${PROGRAM} "$@"
 fi

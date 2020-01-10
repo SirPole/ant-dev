@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+TOOL=$1
+
+if [[ "${TOOL}" != "selfupdate" ]]; then
+    if [[ ! -f ~/.dev/.lastupdate ]]; then
+        echo "Running update for the first time."
+        dev-selfupdate
+    elif [[ $(date '+%s' --date='-7 days') -ge $(cat ~/.dev/.lastupdate) ]]; then
+        echo "Dev hasn't been updated for over a week, do you want to update? [y/n] "
+        read -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            dev-selfupdate
+        fi
+    fi
+fi
+
+if [[ "${TOOL}" == "" ]]; then
+    TOOL=help
+else
+    shift
+fi
+
+if [[ ! -f "$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/dev-${TOOL}" ]]; then
+    echo "Tool '${TOOL}' does not exist!"
+    echo ""
+    TOOL=help
+fi
+
+exec dev-${TOOL} $@

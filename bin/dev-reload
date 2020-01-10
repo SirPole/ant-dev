@@ -2,5 +2,5 @@
 
 set -e
 
-ant-down
-exec ant-up
+dev-down
+exec dev-up
