@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Docker login
+        uses: Azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build images
+        run: |
+          docker build --no-cache -t sirpole/dev-httpd docker/httpd
+          docker build --no-cache -t sirpole/dev-nginx docker/nginx
+          docker build --no-cache -t sirpole/dev-node:8 docker/node/8
+          docker build --no-cache -t sirpole/dev-node:10 docker/node/10
+          docker build --no-cache -t sirpole/dev-node:12 docker/node/12
+          docker build --no-cache -t sirpole/dev-php:7.4 docker/php/7.4
+          docker build --no-cache -t sirpole/dev-php:7.3 docker/php/7.3
+          docker build --no-cache -t sirpole/dev-php:7.2 docker/php/7.2
+          docker build --no-cache -t sirpole/dev-php:7.1 docker/php/7.1
+          docker build --no-cache -t sirpole/dev-php:5.6 docker/php/5.6
+
+      - name: Push to docker hub
+        run: |
+          docker push sirpole/dev-httpd
+          docker push sirpole/dev-nginx
+          docker push sirpole/dev-node:8
+          docker push sirpole/dev-node:10
+          docker push sirpole/dev-node:12
+          docker push sirpole/dev-php:7.4
+          docker push sirpole/dev-php:7.3
+          docker push sirpole/dev-php:7.2
+          docker push sirpole/dev-php:7.1
+          docker push sirpole/dev-php:5.6
