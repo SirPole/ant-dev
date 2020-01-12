@@ -4,7 +4,9 @@ set -e
 
 docker push sirpole/dev-httpd
 docker push sirpole/dev-nginx
-docker push sirpole/dev-node
+docker push sirpole/dev-node:8
+docker push sirpole/dev-node:10
+docker push sirpole/dev-node:12
 docker push sirpole/dev-php:7.4
 docker push sirpole/dev-php:7.3
 docker push sirpole/dev-php:7.2

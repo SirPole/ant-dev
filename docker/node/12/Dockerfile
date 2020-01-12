@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:12-buster-slim
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 

@@ -34,5 +34,5 @@ else
         --publish 9229:9229 \
         --volume $(pwd):/app \
         --volume ~/.dev/npm:/tmp \
-        sirpole/dev-node ${PROGRAM} "$@"
+        sirpole/dev-node:${DEV_NODE_VERSION:-12} ${PROGRAM} "$@"
 fi
