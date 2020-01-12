@@ -20,6 +20,6 @@ exec docker run \
   --user $(id -u):$(id -g) \
   --name composer \
   ${NETWORK} \
-  --volume $(pwd):/app \
-  --volume ~/.dev/composer:/tmp \
+  --volume $(dev-transformPath $(pwd)):/app \
+  --volume $(dev-transformPath ~/.dev/composer):/tmp \
   composer ${ARGS} "$@"

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+case "$(uname -s)" in
+    Linux*)               MACHINE=Linux;;
+    Darwin*)              MACHINE=Mac;;
+    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
+    *)                    MACHINE=Unknown;;
+esac
+
+UNIX_PATH=$1
+
+if [[ ${MACHINE} == "Windows" ]]; then
+  echo ${UNIX_PATH//\//\\\\} | sed 's/^\\\\\([a-z]\)/\1:/'
+else
+  echo ${UNIX_PATH}
+fi

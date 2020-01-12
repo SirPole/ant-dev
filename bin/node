@@ -32,7 +32,7 @@ else
         ${NETWORK} \
         --publish 3000:3000 \
         --publish 9229:9229 \
-        --volume $(pwd):/app \
-        --volume ~/.dev/npm:/tmp \
+        --volume $(dev-transformPath $(pwd)):/app \
+        --volume $(dev-transformPath ~/.dev/npm):/tmp \
         sirpole/dev-node:${DEV_NODE_VERSION:-12} ${PROGRAM} "$@"
 fi
