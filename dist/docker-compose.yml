@@ -23,7 +23,7 @@ services:
     container_name: php
     environment:
       - TZ
-      - NETTE_DEBUG
+      - NETTE_DEBUG={NETTE_DEBUG:-1}
     image: sirpole/dev-php:${DEV_PHP_VERSION:-7.4}
     networks:
       - dev
