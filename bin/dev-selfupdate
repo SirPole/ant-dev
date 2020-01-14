@@ -3,6 +3,9 @@
 set -e
 
 mkdir -p ~/.dev
+mkdir -p ~/.dev/composer
+mkdir -p ~/.dev/npm
+mkdir -p ~/.dev/mysql
 
 cd $(cd "$(echo "${BASH_SOURCE[0]%/*}")/.." && pwd)
 
@@ -20,8 +23,8 @@ docker pull sirpole/dev-php:7.2
 docker pull sirpole/dev-php:7.1
 docker pull sirpole/dev-php:5.6
 docker pull mysql:8
-docker pull phpmyadmin/phpmyadmin:4.9-fpm-alpine
+docker pull phpmyadmin/phpmyadmin
 docker pull composer
 docker system prune --force --volumes
 
-date '+%s' > ~/.dev/.lastupdate
+date '+%s' > ${LASTUPDATE}

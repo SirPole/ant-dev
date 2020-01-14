@@ -2,8 +2,8 @@
 
 set -e
 
-if [[ -f ~/.dev/.lock ]]; then
-    cd $(cat ~/.dev/.lock)
-    docker-compose down --remove-orphans --volumes
-    rm -f ~/.dev/.lock
+if [[ -f ${LOCKFILE} ]]; then
+  cd $(cat ${LOCKFILE})
+  docker-compose down --remove-orphans --volumes
+  rm -f ${LOCKFILE}
 fi

@@ -2,7 +2,7 @@
 
 set -e
 
-if [[ ! "$(docker ps -q -f name=php)" ]]; then
+if [[ ! -f ${LOCKFILE} ]]; then
     dev-up
 fi
 
