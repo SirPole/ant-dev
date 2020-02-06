@@ -16,4 +16,4 @@ RUN sed -i \
         /usr/local/apache2/conf/httpd.conf \
     && echo "Include conf/extra/httpd-extra.conf" >> /usr/local/apache2/conf/httpd.conf
 
-WORKDIR /var/www/html
+WORKDIR /app

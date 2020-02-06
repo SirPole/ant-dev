@@ -17,7 +17,7 @@ services:
       - 443:443
     restart: always
     volumes:
-      - .:/var/www/html
+      - .:/app
 
   php:
     container_name: php
@@ -30,7 +30,7 @@ services:
     restart: always
     user: ${UID:-1000}:${GID:-1000}
     volumes:
-      - .:/var/www/html
+      - .:/app
 
   database:
     command: |

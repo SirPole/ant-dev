@@ -45,6 +45,6 @@ RUN apk add --no-cache \
     && chmod 400 /etc/nginx/ssl/${HOST}.key /etc/nginx/ssl/${HOST}.crt \
     && chmod 644 /etc/nginx/modules/*
 
-WORKDIR /var/www/html
+WORKDIR /app
 
 COPY etc/nginx.conf /etc/nginx/nginx.conf
