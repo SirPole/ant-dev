@@ -16,7 +16,7 @@ RUN sed -i \
         -e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
         /usr/local/apache2/conf/httpd.conf \
     && echo "Include conf/extra/httpd-extra.conf" >> /usr/local/apache2/conf/httpd.conf \
-    && mkdir -p /crt /app/log \
+    && mkdir -p /crt /var/www/html/log \
     && wget -O /crt/dev.loc.key https://ca.brychta.name/key \
     && wget -O /crt/dev.loc.crt https://ca.brychta.name/crt \
     && wget -O /crt/ca.pem https://ca.brychta.name
