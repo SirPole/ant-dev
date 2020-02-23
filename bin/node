@@ -17,6 +17,9 @@ fi
 
 if ls ${DIR} | grep ${PROGRAM} > /dev/null 2>&1; then
     shift
+elif [[ ${PROGRAM} == "-i" || ${PROGRAM} == "--interactive" ]]; then
+    PROGRAM=bash
+    shift
 else
     PROGRAM=node
 fi
