@@ -14,6 +14,7 @@ git checkout master --force
 git reset --hard origin/master
 
 docker pull sirpole/dev-httpd
+docker pull sirpole/dev-nginx
 docker pull --all-tags sirpole/dev-node
 docker pull --all-tags sirpole/dev-php
 docker pull mysql:8
@@ -21,4 +22,4 @@ docker pull phpmyadmin/phpmyadmin
 docker pull composer
 docker system prune --force --volumes
 
-date '+%s' > ${LASTUPDATE}
+date '+%s' >${LASTUPDATE}

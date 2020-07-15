@@ -3,24 +3,24 @@
 set -e
 
 if [[ ! -f ${LOCKFILE} ]]; then
-    dev-up
+  dev-up
 fi
 
 DB=$1
 RESULT_PATH="."
 
 if [[ $2 != "" ]]; then
-    RESULT_PATH="$2"
+  RESULT_PATH="$2"
 fi
 
 exec docker exec \
-    database mysqldump \
-        --add-drop-table \
-        --add-locks \
-        --compact \
-        --disable-keys \
-        --extended-insert \
-        --insert-ignore \
-        --no-create-db \
-        --user root \
-        ${DB} > ${RESULT_PATH}/${DB}.sql
+  database mysqldump \
+  --add-drop-table \
+  --add-locks \
+  --compact \
+  --disable-keys \
+  --extended-insert \
+  --insert-ignore \
+  --no-create-db \
+  --user root \
+  ${DB} >${RESULT_PATH}/${DB}.sql

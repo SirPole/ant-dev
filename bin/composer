@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 set -e
+dev-sourceEnv
 
 NETWORK=""
 ARGS=""
 
 if [[ "$(docker network ls -q -f name=dev)" ]]; then
-    NETWORK="--network dev"
+  NETWORK="--network dev"
 fi
 
 if [[ $1 == "install" ]]; then

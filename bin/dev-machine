@@ -3,10 +3,10 @@
 set -e
 
 case "$(uname -s)" in
-    Linux*)               MACHINE=Linux;;
-    Darwin*)              MACHINE=Mac;;
-    CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
-    *)                    MACHINE=Unknown;;
+  Linux*)               MACHINE=Linux;;
+  Darwin*)              MACHINE=Mac;;
+  CYGWIN*|MINGW*|MSYS*) MACHINE=Windows;;
+  *)                    MACHINE=Unknown;;
 esac
 
 echo ${MACHINE}

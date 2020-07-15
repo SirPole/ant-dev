@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 set -e
+dev-sourceEnv
 
 if [[ ! "$(docker ps -q -f name=php)" ]]; then
-    dev up
+  dev up
 fi
 
 exec docker exec \
-    --interactive \
-    --tty \
-    --user $(id -u):$(id -g) \
-    php php "$@"
+  --interactive \
+  --tty \
+  --user $(id -u):$(id -g) \
+  php php "$@"

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 set -e
+dev-sourceEnv
 
 if [[ ! "$(docker ps -q -f name=database)" ]]; then
-    dev up
+  dev up
 fi
 
 exec docker exec \
-    --interactive \
-    database mysqldump "$@"
+  --interactive \
+  database mysqldump "$@"
