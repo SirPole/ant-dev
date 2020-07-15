@@ -4,8 +4,22 @@ set -e
 
 cp "$(cd "$(echo "${BASH_SOURCE[0]%/*}")" && pwd)/../dist/docker-compose.yml" .
 
-if [[ $1 != "" ]]; then
+if [[ $1 != "-d" && $1 != "--default" ]]; then
+  echo "What webserver would you like to use? Default nginx (nginx|httpd):"
+  read webserver
+
+  if [[ $webserver != "" ]]; then
     sed -i \
-        -e "s/7.4/$1/" \
-        docker-compose.yml
+      -e "s/nginx/$webserver/" \
+      docker-compose.yml
+  fi
+
+  echo "What php version would you like to use? Default 7.4 (5.6|7.1|7.2|7.3|7.4):"
+  read php
+
+  if [[ $php != "" ]]; then
+    sed -i \
+      -e "s/7.4/$php/" \
+      docker-compose.yml
+  fi
 fi
