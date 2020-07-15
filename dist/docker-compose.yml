@@ -5,9 +5,9 @@ networks:
     name: dev
 
 services:
-  httpd:
-    container_name: httpd
-    image: sirpole/dev-httpd:${DEV_HTTPD_VERSION:-latest}
+  web:
+    container_name: web
+    image: sirpole/dev-nginx:${DEV_WEB_VERSION:-latest}
     environment:
       - TZ
     networks:

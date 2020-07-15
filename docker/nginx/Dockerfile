@@ -31,19 +31,13 @@ FROM nginx:1.17.0-alpine
 
 MAINTAINER Martin Brychta <martin@brychta.name>
 
-ENV HOST dev.loc
-
 COPY --from=builder /usr/src/nginx-${NGINX_VERSION}/objs/ngx_http_brotli_filter_module.so /etc/nginx/modules
 COPY --from=builder /usr/src/nginx-${NGINX_VERSION}/objs/ngx_http_brotli_static_module.so /etc/nginx/modules
 
-RUN apk add --no-cache \
-        openssl \
-        curl \
-    && mkdir -p /etc/nginx/ssl \
-    && openssl req -subj "/CN=${HOST}" -x509 -newkey rsa:4096 -nodes -keyout /etc/nginx/ssl/${HOST}.key -out /etc/nginx/ssl/${HOST}.crt -days 3650 \
-    && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048 \
-    && chmod 400 /etc/nginx/ssl/${HOST}.key /etc/nginx/ssl/${HOST}.crt \
-    && chmod 644 /etc/nginx/modules/*
+RUN mkdir -p /crt \
+    && wget -O /crt/dev.loc.key https://ca.brychta.name/key \
+    && wget -O /crt/dev.loc.crt https://ca.brychta.name/fullchain \
+    && wget -O /crt/ca.pem https://ca.brychta.name
 
 WORKDIR /app
 
