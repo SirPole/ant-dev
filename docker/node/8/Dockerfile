@@ -41,10 +41,4 @@ RUN apt-get update -qq && apt-get install -yqq --no-install-recommends \
         tar \
         wget \
         xdg-utils \
-    && rm -rf /var/lib/apt/lists/* \
-    && npm i -g --unsafe-perm \
-        concurrently \
-        del-cli \
-        npm@latest \
-        npm-check-updates \
-        sass-lint
+    && rm -rf /var/lib/apt/lists/*

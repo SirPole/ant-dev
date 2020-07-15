@@ -14,14 +14,8 @@ git checkout master --force
 git reset --hard origin/master
 
 docker pull sirpole/dev-httpd
-docker pull sirpole/dev-node:8
-docker pull sirpole/dev-node:10
-docker pull sirpole/dev-node:12
-docker pull sirpole/dev-php:7.4
-docker pull sirpole/dev-php:7.3
-docker pull sirpole/dev-php:7.2
-docker pull sirpole/dev-php:7.1
-docker pull sirpole/dev-php:5.6
+docker pull --all-tags sirpole/dev-node
+docker pull --all-tags sirpole/dev-php
 docker pull mysql:8
 docker pull phpmyadmin/phpmyadmin
 docker pull composer

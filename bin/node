@@ -29,14 +29,14 @@ if [[ "$(docker ps -q -f name=node)" ]]; then
         --interactive \
         --tty \
         ${USER} \
-        node ${PROGRAM} "$@"
+        node-${DEV_NODE_VERSION} ${PROGRAM} "$@"
 else
     exec docker run \
         --rm \
         --interactive \
         --tty \
         ${USER} \
-        --name node \
+        --name node-${DEV_NODE_VERSION} \
         ${NETWORK} \
         --publish 3000:3000 \
         --publish 9229:9229 \
