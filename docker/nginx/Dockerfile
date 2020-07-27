@@ -35,9 +35,9 @@ COPY --from=builder /usr/src/nginx-${NGINX_VERSION}/objs/ngx_http_brotli_filter_
 COPY --from=builder /usr/src/nginx-${NGINX_VERSION}/objs/ngx_http_brotli_static_module.so /etc/nginx/modules
 
 RUN mkdir -p /crt \
+    && wget -O /crt/dhparam.pem https://ca.brychta.name/dhparam \
     && wget -O /crt/dev.loc.key https://ca.brychta.name/key \
-    && wget -O /crt/dev.loc.crt https://ca.brychta.name/fullchain \
-    && wget -O /crt/ca.pem https://ca.brychta.name
+    && wget -O /crt/dev.loc.crt https://ca.brychta.name/fullchain
 
 WORKDIR /app
 
