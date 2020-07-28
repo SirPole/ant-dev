@@ -8,6 +8,7 @@ ENV DOCKER_ENV=1
 WORKDIR /app
 
 RUN apt-get update -qq && apt-get install -yqq --no-install-recommends \
+		build-essential \
         fonts-liberation \
         gconf-service \
         git \

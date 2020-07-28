@@ -11,7 +11,7 @@ USER=""
 PROGRAM=$1
 
 if [[ $(dev-machine) != "Windows" ]]; then
-  USER=$(id -u):$(id -g)
+  USER="--user $(id -u):$(id -g)"
 fi
 
 if [[ "$(docker network ls -q -f name=dev)" ]]; then
